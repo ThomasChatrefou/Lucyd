@@ -15,7 +15,8 @@ public class FadeScript : MonoBehaviour
     {
         timer = 0;
         renderScreen = GameObject.Find("Canvas");
-
+        foreach(GameObject obj in OnelyDarkWDObject)
+            obj.GetComponent<Collider>().enabled = false;
     }
 
     public void ScreenFade()
