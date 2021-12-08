@@ -7,10 +7,11 @@ public class ButtonBehaviour : MonoBehaviour
 
     public bool on = false;
     private bool buttonHit = false;
+    private bool clicked = false;
     private GameObject button;
 
     private float buttonDownDistance = 0.05f;
-    private float buttonReturnSpeed = 0.05f;
+    private float buttonReturnSpeed = 0.1f;
     private float buttonOriginalY;
 
     private float buttonCooldown = 1.0f;
@@ -57,11 +58,18 @@ public class ButtonBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") && canHitAgain < Time.time)
+        if(clicked && other.CompareTag("Player") && canHitAgain < Time.time)
         {
             canHitAgain = Time.time + buttonCooldown;
             buttonHit = true;
+            clicked = false;
         }
+    }
+
+    private void OnMouseDown()
+    {
+        clicked = true;
+        print(clicked);
     }
 
 }

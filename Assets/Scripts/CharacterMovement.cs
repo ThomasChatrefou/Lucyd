@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class mouvement : MonoBehaviour
+
+public class CharacterMovement : MonoBehaviour
 {
     public Camera cam;
     public NavMeshAgent agent;
