@@ -5,10 +5,15 @@ using UnityEngine;
 public class LeverBehaviour : MonoBehaviour
 {
     public bool on = false;
-    private bool leverHit = false;
+    public float leverSpeed;
+
+    private bool pullable = false;
+
     private GameObject leverStick;
 
-    public float leverRotation = -90;
+    private float currentRotation = 0;
+    private float stepRotation;
+    private float maxRotation = 90;
 
     // Start is called before the first frame update
     void Start()
@@ -19,35 +24,56 @@ public class LeverBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (leverHit)
-        {
-            leverHit = false;
-            on = !on;
+        stepRotation = Time.deltaTime * leverSpeed;
 
-            if (on)
+        if (pullable)
+        {
+            if (Input.GetMouseButton(1))
             {
-                print("lever on");
-                leverStick.transform.rotation = Quaternion.Euler(
-                    leverStick.transform.eulerAngles.x + leverRotation,
-                    leverStick.transform.eulerAngles.y,
-                    leverStick.transform.eulerAngles.z);
+                if(currentRotation < maxRotation)
+                {
+                    leverStick.transform.Rotate(stepRotation, 0, 0,Space.Self);
+                    currentRotation += stepRotation;
+                }
+                else
+                {
+                    on = !on;
+                }
             }
             else
             {
-                print("lever off");
-                leverStick.transform.rotation = Quaternion.Euler(
-                    leverStick.transform.eulerAngles.x - leverRotation,
-                    leverStick.transform.eulerAngles.y,
-                    leverStick.transform.eulerAngles.z);
+                if (currentRotation > 0)
+                {
+                    leverStick.transform.Rotate(-stepRotation, 0, 0, Space.Self);
+                    currentRotation -= stepRotation;
+                }
+            }
+        }
+        else
+        {
+            if (currentRotation > 0)
+            {
+                leverStick.transform.Rotate(-stepRotation, 0, 0, Space.Self);
+                currentRotation -= stepRotation;
             }
         }
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            leverHit = true;
+            pullable = true;
+        }
+    }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            pullable = false;
         }
     }
 }

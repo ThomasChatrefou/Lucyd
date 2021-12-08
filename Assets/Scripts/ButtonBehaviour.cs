@@ -6,14 +6,14 @@ public class ButtonBehaviour : MonoBehaviour
 {
 
     public bool on = false;
-    private bool buttonHit = false;
-    private bool clicked = false;
+    public float buttonReturnSpeed = 0.1f;
+
+    private bool pushable = false;
+
     private GameObject button;
 
-    private float buttonDownDistance = 0.05f;
-    private float buttonReturnSpeed = 0.1f;
     private float buttonOriginalY;
-
+    private float buttonDownDistance = 0.05f;
     private float buttonCooldown = 1.0f;
     private float canHitAgain;
 
@@ -31,15 +31,11 @@ public class ButtonBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (buttonHit)
+        if (pushable && Input.GetMouseButtonDown(1) && canHitAgain < Time.time)
         {
-            buttonHit = false;
             on = !on;
-
-
             button.transform.position -= new Vector3(0, buttonDownDistance, 0);
-
-
+            
             if (on)
             {
                 print("button on");
@@ -49,27 +45,30 @@ public class ButtonBehaviour : MonoBehaviour
                 print("button off");
             }
 
+            canHitAgain = Time.time + buttonCooldown;
         }
+
         if (button.transform.position.y < buttonOriginalY)
         {
             button.transform.position += new Vector3(0, Time.deltaTime * buttonReturnSpeed, 0);
         }
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
-        if(clicked && other.CompareTag("Player") && canHitAgain < Time.time)
+        if (other.CompareTag("Player"))
         {
-            canHitAgain = Time.time + buttonCooldown;
-            buttonHit = true;
-            clicked = false;
+            pushable = true;
         }
     }
 
-    private void OnMouseDown()
-    {
-        clicked = true;
-        print(clicked);
-    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            pushable = false;
+        }
+    }
 }
