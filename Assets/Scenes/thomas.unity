@@ -1675,7 +1675,7 @@ PrefabInstance:
       objectReference: {fileID: 70843137}
     - target: {fileID: 2230416595234456821, guid: a3bd34437e932504a8aa0adf2bab22d0, type: 3}
       propertyPath: timeOffset
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2572577651787143828, guid: a3bd34437e932504a8aa0adf2bab22d0, type: 3}
       propertyPath: m_LocalPosition.x

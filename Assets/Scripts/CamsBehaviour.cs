@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CamsBehaviour : MonoBehaviour
 {
-    public float timeOffset;
+    public float timeOffset = 0;
+    public float flexibility = 0;
     public GameObject player;
 
     private Vector3 constantOffset;
@@ -20,7 +21,7 @@ public class CamsBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 offset = constantOffset + 2 * player.transform.forward;
+        Vector3 offset = constantOffset + flexibility * player.transform.forward;
 
         //transform.position = player.transform.position + offset;
         transform.position = Vector3.SmoothDamp(transform.position,
