@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FadeScript : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     private GameObject renderScreen;
     private bool MainCam = false;
@@ -10,6 +10,7 @@ public class FadeScript : MonoBehaviour
     private float timer;
     public GameObject[] OnelyLightWDObject;
     public GameObject[] OnelyDarkWDObject;
+    public bool DarkWorld = false;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class FadeScript : MonoBehaviour
                 obj.GetComponent<Collider>().enabled = false;
             foreach (GameObject obj in OnelyLightWDObject)
                 obj.GetComponent<Collider>().enabled = true;
+            DarkWorld = false;
         }
         else
         {
@@ -38,6 +40,7 @@ public class FadeScript : MonoBehaviour
                 obj.GetComponent<Collider>().enabled = true;
             foreach (GameObject obj in OnelyLightWDObject)
                 obj.GetComponent<Collider>().enabled = false;
+            DarkWorld = true;
         }
     }
 
