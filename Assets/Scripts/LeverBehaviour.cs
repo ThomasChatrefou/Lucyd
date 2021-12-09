@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class LeverBehaviour : MonoBehaviour
 {
-    public bool on = false;
     public float leverSpeed;
 
     private bool pullable = false;
 
-    private GameObject leverStick;
+    private Transform leverStick;
 
     private float currentRotation = 0;
     private float stepRotation;
@@ -18,11 +17,11 @@ public class LeverBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        leverStick = transform.GetChild(1).gameObject;
+        leverStick = transform.GetChild(1);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         stepRotation = Time.deltaTime * leverSpeed;
 
@@ -32,19 +31,15 @@ public class LeverBehaviour : MonoBehaviour
             {
                 if(currentRotation < maxRotation)
                 {
-                    leverStick.transform.Rotate(stepRotation, 0, 0,Space.Self);
+                    leverStick.Rotate(stepRotation, 0, 0,Space.Self);
                     currentRotation += stepRotation;
-                }
-                else
-                {
-                    on = !on;
                 }
             }
             else
             {
                 if (currentRotation > 0)
                 {
-                    leverStick.transform.Rotate(-stepRotation, 0, 0, Space.Self);
+                    leverStick.Rotate(-stepRotation, 0, 0, Space.Self);
                     currentRotation -= stepRotation;
                 }
             }
@@ -53,7 +48,7 @@ public class LeverBehaviour : MonoBehaviour
         {
             if (currentRotation > 0)
             {
-                leverStick.transform.Rotate(-stepRotation, 0, 0, Space.Self);
+                leverStick.Rotate(-stepRotation, 0, 0, Space.Self);
                 currentRotation -= stepRotation;
             }
         }

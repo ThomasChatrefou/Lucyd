@@ -7,15 +7,15 @@ public class ButtonBehaviour : MonoBehaviour
 
     public bool on = false;
     public float buttonReturnSpeed = 0.1f;
+    public float buttonCooldown = 1.0f;
 
     private bool pushable = false;
 
-    private GameObject button;
+    private Transform button;
 
-    private float buttonOriginalY;
-    private float buttonDownDistance = 0.05f;
-    private float buttonCooldown = 1.0f;
     private float canHitAgain;
+    private float buttonOriginalY;
+    private float buttonDownDistance;
 
     //remplacer par reference vers l'objet relié au bouton
     //public bool ButtonState = false;
@@ -24,8 +24,9 @@ public class ButtonBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        button = transform.GetChild(1).gameObject;
-        buttonOriginalY = button.transform.position.y;
+        button = transform.GetChild(1);
+        buttonDownDistance = button.lossyScale.y;
+        buttonOriginalY = button.position.y;
     }
 
     // Update is called once per frame
@@ -34,7 +35,7 @@ public class ButtonBehaviour : MonoBehaviour
         if (pushable && Input.GetMouseButtonDown(1) && canHitAgain < Time.time)
         {
             on = !on;
-            button.transform.position -= new Vector3(0, buttonDownDistance, 0);
+            button.position -= new Vector3(0, buttonDownDistance, 0);
             
             if (on)
             {
@@ -48,9 +49,9 @@ public class ButtonBehaviour : MonoBehaviour
             canHitAgain = Time.time + buttonCooldown;
         }
 
-        if (button.transform.position.y < buttonOriginalY)
+        if (button.position.y < buttonOriginalY)
         {
-            button.transform.position += new Vector3(0, Time.deltaTime * buttonReturnSpeed, 0);
+            button.position += new Vector3(0, Time.deltaTime * buttonReturnSpeed, 0);
         }
     }
 
