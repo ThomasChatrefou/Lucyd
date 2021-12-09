@@ -100,6 +100,7 @@ public class MovableObjects : MonoBehaviour
         if (dropped)
         {
             elapsedTime += Time.deltaTime;
+            //transform.Translate(Vector3.forward * Time.deltaTime);
             transform.position = Vector3.Lerp(StartPosition, dropPositon, Mathf.SmoothStep(0, 1, elapsedTime / desiredDurationDrop));
             transform.rotation = new Quaternion(0, 0, 0, 0);
            
