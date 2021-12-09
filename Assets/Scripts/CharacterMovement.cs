@@ -12,8 +12,9 @@ public class CharacterMovement : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
+            agent.isStopped = false;
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
