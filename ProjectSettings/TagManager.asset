@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - MovableObject
+  - Button
+  - Press
+  - Lever
   layers:
   - Default
   - TransparentFX

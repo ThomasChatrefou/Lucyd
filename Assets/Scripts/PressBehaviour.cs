@@ -6,13 +6,15 @@ public class PressBehaviour : MonoBehaviour
 {
     public float pressSpeed = 1.0f;
 
-    private int nObjectsOnPress = 0;
+    public bool on = false;
 
-    private Transform plate;
+    private int nObjectsOnPress = 0;
 
     private float plateDownY;
     private float plateOriginalY;
     private float plateDownDistance;
+
+    private Transform plate;
 
 
     // Start is called before the first frame update
@@ -34,6 +36,11 @@ public class PressBehaviour : MonoBehaviour
             if (plate.position.y > plateDownY)
             {
                 plate.Translate(0, -Time.deltaTime * pressSpeed, 0);
+                on = false;
+            }
+            else
+            {
+                on = true;
             }
         }
         else
@@ -41,6 +48,7 @@ public class PressBehaviour : MonoBehaviour
             if (plate.position.y < plateOriginalY)
             {
                 plate.Translate(0, Time.deltaTime * pressSpeed, 0);
+                on = false;
             }
         }
     }

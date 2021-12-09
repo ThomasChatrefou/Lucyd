@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class LeverBehaviour : MonoBehaviour
 {
-    public float leverSpeed;
+    public float leverSpeed = 40;
+
+    public float percent = 0;
 
     private bool pullable = false;
-
-    private Transform leverStick;
 
     private float currentRotation = 0;
     private float stepRotation;
     private float maxRotation = 90;
+
+    private Transform leverStick;
 
     // Start is called before the first frame update
     void Start()

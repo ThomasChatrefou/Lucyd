@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class ButtonBehaviour : MonoBehaviour
 {
-
-    public bool on = false;
     public float buttonReturnSpeed = 0.1f;
     public float buttonCooldown = 1.0f;
 
-    private bool pushable = false;
+    public bool on = false;
 
-    private Transform button;
+    private bool pushable = false;
 
     private float canHitAgain;
     private float buttonOriginalY;
     private float buttonDownDistance;
+
+    private Transform button;
 
     //remplacer par reference vers l'objet relié au bouton
     //public bool ButtonState = false;

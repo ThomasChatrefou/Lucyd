@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6130164935234702608}
   m_Layer: 0
   m_Name: Press
-  m_TagString: Untagged
+  m_TagString: Press
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pressSpeed: 1
+  on: 0
 --- !u!1 &6130164936307859581
 GameObject:
   m_ObjectHideFlags: 0
