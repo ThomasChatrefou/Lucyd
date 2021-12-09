@@ -39,9 +39,7 @@ public class PressBehaviour : MonoBehaviour
                 on = false;
             }
             else
-            {
                 on = true;
-            }
         }
         else
         {
@@ -57,17 +55,13 @@ public class PressBehaviour : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("MovableObject"))
-        {
             nObjectsOnPress++;
-        }
     }
 
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("MovableObject"))
-        {
             if (nObjectsOnPress > 0) nObjectsOnPress--;
-        }
     }
 }

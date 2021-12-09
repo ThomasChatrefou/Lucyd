@@ -34,12 +34,23 @@ public class PanelBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (moveRight) translation += transform.right;
-        if (moveLeft) translation -= transform.right;
-        if (moveUp) translation += transform.up;
-        if (moveDown) translation -= transform.up;
-        if (moveForward) translation += transform.forward;
-        if (moveBackward) translation -= transform.forward;
+        if (moveRight)
+            translation += transform.right;
+
+        if (moveLeft) 
+            translation -= transform.right;
+
+        if (moveUp) 
+            translation += transform.up;
+
+        if (moveDown) 
+            translation -= transform.up;
+
+        if (moveForward)
+            translation += transform.forward;
+
+        if (moveBackward)
+            translation -= transform.forward;
 
         translation.Normalize();
 
@@ -71,16 +82,12 @@ public class PanelBehaviour : MonoBehaviour
             if (button.on)
             {
                 if (Vector3.Distance(transform.position, targetPosition) > 0.01)
-                {
                     transform.Translate(Time.deltaTime * speed * translation);
-                }
             }
             else
             {
                 if (Vector3.Distance(transform.position, originalPosition) > 0.01)
-                {
                     transform.Translate(-Time.deltaTime * speed * translation);
-                }
             }
         }
 

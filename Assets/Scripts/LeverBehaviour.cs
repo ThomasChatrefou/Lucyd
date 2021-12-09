@@ -29,7 +29,7 @@ public class LeverBehaviour : MonoBehaviour
 
         if (pullable)
         {
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(0))
             {
                 if(currentRotation < maxRotation)
                 {
