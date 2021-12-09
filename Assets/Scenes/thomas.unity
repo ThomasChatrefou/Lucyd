@@ -373,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1508027482798351239, guid: e935c0f361726c34785f093fef442633, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 1508027482798351239, guid: e935c0f361726c34785f093fef442633, type: 3}
       propertyPath: m_LocalPosition.z
@@ -408,9 +408,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1508027482798351355, guid: e935c0f361726c34785f093fef442633, type: 3}
+      propertyPath: Cam
+      value: 
+      objectReference: {fileID: 1849307886}
+    - target: {fileID: 1508027482798351355, guid: e935c0f361726c34785f093fef442633, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 1849307886}
+    - target: {fileID: 1508027482798351355, guid: e935c0f361726c34785f093fef442633, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 521404418}
     - target: {fileID: 1508027482798351355, guid: e935c0f361726c34785f093fef442633, type: 3}
       propertyPath: player
       value: 
@@ -423,7 +431,8 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1508027482798351355, guid: e935c0f361726c34785f093fef442633, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e935c0f361726c34785f093fef442633, type: 3}
 --- !u!1 &521404411 stripped
 GameObject:
@@ -2167,6 +2176,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634962802}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1646581820 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1508027482798351357, guid: e935c0f361726c34785f093fef442633, type: 3}
+  m_PrefabInstance: {fileID: 519240541}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1646581821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646581820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445bc7a2ba56ed14e92dd53c44dbabb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShadowPrefab: {fileID: 4526524997302427832, guid: cf59232d119faeb429f5427f83b4cde2, type: 3}
+  Cam: {fileID: 1849307886}
 --- !u!1 &1681306722
 GameObject:
   m_ObjectHideFlags: 0
