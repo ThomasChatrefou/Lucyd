@@ -35,6 +35,7 @@ public class LeverBehaviour : MonoBehaviour
                 {
                     leverStick.Rotate(stepRotation, 0, 0,Space.Self);
                     currentRotation += stepRotation;
+                    percent = currentRotation / maxRotation;
                 }
             }
             else
@@ -43,6 +44,7 @@ public class LeverBehaviour : MonoBehaviour
                 {
                     leverStick.Rotate(-stepRotation, 0, 0, Space.Self);
                     currentRotation -= stepRotation;
+                    percent = currentRotation / maxRotation;
                 }
             }
         }
@@ -52,6 +54,7 @@ public class LeverBehaviour : MonoBehaviour
             {
                 leverStick.Rotate(-stepRotation, 0, 0, Space.Self);
                 currentRotation -= stepRotation;
+                percent = currentRotation / maxRotation;
             }
         }
     }

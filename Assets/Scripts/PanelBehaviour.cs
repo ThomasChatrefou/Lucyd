@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PanelBehaviour : MonoBehaviour
 {
+    public LogicGate gate;
+
     public bool moveRight;
     public bool moveLeft;
     public bool moveUp;
@@ -14,20 +16,10 @@ public class PanelBehaviour : MonoBehaviour
     public float dist;
     public float speed = 1.0f;
 
-    public GameObject input;
+    private float eps = 0.01f;
 
-    public ButtonBehaviour button; 
-
-    private bool inputIsButton = false;
-    private bool inputIsPress = false;
-    private bool inputIsLever = false;
-
-    private bool on;
-
-    private float percent;
-
-    private Vector3 targetPosition;
-    private Vector3 originalPosition;
+    private Vector3 targetPos;
+    private Vector3 originalPos;
     private Vector3 translation;
 
 
@@ -53,47 +45,26 @@ public class PanelBehaviour : MonoBehaviour
             translation -= transform.forward;
 
         translation.Normalize();
-
-        if (input.CompareTag("Button"))
-        {
-            inputIsButton = true;
-            on = input.GetComponent<ButtonBehaviour>().on;
-        }
-        if (input.CompareTag("Press"))
-        {
-            inputIsPress = true;
-            on = input.GetComponent<PressBehaviour>().on;
-        }
-        if (input.CompareTag("Lever"))
-        {
-            inputIsLever = true;
-            percent = input.GetComponent<LeverBehaviour>().percent;
-        }
-        
-        originalPosition = transform.position;
-        targetPosition = originalPosition + translation;
+        originalPos = transform.position;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (inputIsButton || inputIsPress)
+        targetPos = originalPos + gate.output * dist * translation;
+
+        Vector3 pos = transform.position;
+
+        float sgn;
+
+        if (Vector3.Distance(pos, targetPos) > eps)
         {
-            if (button.on)
-            {
-                if (Vector3.Distance(transform.position, targetPosition) > 0.01)
-                    transform.Translate(Time.deltaTime * speed * translation);
-            }
+            if (Vector3.Distance(pos, originalPos) < eps)
+                sgn = 1.0f;
             else
-            {
-                if (Vector3.Distance(transform.position, originalPosition) > 0.01)
-                    transform.Translate(-Time.deltaTime * speed * translation);
-            }
-        }
+                sgn = -Mathf.Sign(Vector3.Dot(originalPos - pos, targetPos - pos));
 
-        if (inputIsLever)
-        {
-
+            transform.Translate(sgn * Time.deltaTime * speed * translation, Space.World);
         }
     }
 }
