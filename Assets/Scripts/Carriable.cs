@@ -5,85 +5,83 @@ using UnityEngine.AI;
 
 public class Carriable : MonoBehaviour
 {
-    private bool Carried  ;
-    private bool IsClicked ;
-    private float Dist = 0;
-    private GameObject Player;
-    private GameObject Shadow;
-    public GameObject ShadowPrefab;
-    public Camera Cam;
-    RaycastHit Hit;
+    private bool carried;
+    private bool isClicked;
+    private float dist = 0;
+    private GameObject player;
+    private GameObject shadow;
+    public GameObject shadowPrefab;
+    public Camera cam;
+    RaycastHit hit;
     
     void Start()
     {
-        Player = GameObject.FindWithTag("Player");
-        Carried = false;
-        IsClicked = false;
+        player = GameObject.FindWithTag("Player");
+        carried = false;
+        isClicked = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(Dist);
-        if (IsClicked == true )
+        print(dist);
+        if (isClicked == true)
         {
            
-            if (Carried == false)
+            if (carried == false)
             {
-                Dist = Vector3.Distance(transform.position, Player.transform.position);
-                if (Dist <= 1.5f)
+                dist = Vector3.Distance(transform.position, player.transform.position);
+                if (dist <= 1.5f)
                 {
-                    Carried = true;
+                    carried = true;
                     GetComponent<NavMeshObstacle>().enabled = false;
                 }
             }
             else
             {
                 GetComponent<Rigidbody>().isKinematic = true;
-                transform.parent = Player.transform;
+                transform.parent = player.transform;
                 transform.position += Vector3.up * 0.5f;
-                IsClicked = false;
-                Shadow = Instantiate(ShadowPrefab);
+                isClicked = false;
+                shadow = Instantiate(shadowPrefab);
             }
         }
         else
         {
-            if (Carried == true)
+            if (carried == true)
             {
-                if ( Input.GetMouseButtonDown(1))
+                if (Input.GetMouseButtonDown(0))
                 {
-                    Carried = false;
-                    Player.GetComponent<NavMeshAgent>().SetDestination(Shadow.transform.position);
+                    carried = false;
+                    player.GetComponent<NavMeshAgent>().SetDestination(shadow.transform.position);
                 }
-                Ray ray = Cam.ScreenPointToRay(Input.mousePosition);
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-                Physics.Raycast(ray, out Hit);
+                Physics.Raycast(ray, out hit);
 
-
-                Shadow.transform.position = Hit.point + new Vector3(0, 0.5f, 0);
-
+                shadow.transform.position = hit.point + new Vector3(0, 0.5f, 0);
             }
-            else if (Shadow)
+            else if (shadow)
             {
-                Dist = Vector3.Distance(Player.transform.position, Shadow.transform.position);
-                if (Dist <= 1.5f)
+                dist = Vector3.Distance(player.transform.position, shadow.transform.position);
+                if (dist <= 1.5f)
                 {
-                    Player.GetComponent<NavMeshAgent>().isStopped = true;
-                    transform.position = Shadow.transform.position;
+                    player.GetComponent<NavMeshAgent>().isStopped = true;
+                    transform.position = shadow.transform.position;
                     GetComponent<Rigidbody>().isKinematic = false;
                     transform.parent = null;
-                    Carried = false;
+                    carried = false;
                     GetComponent<NavMeshObstacle>().enabled = true;
-                    Destroy(Shadow);
-
+                    Destroy(shadow);
                 }
-
             }
         }
     }
+
+
     void OnMouseDown()
     {
-        IsClicked = true;
-        Player.GetComponent<NavMeshAgent>().SetDestination(transform.position);
+        isClicked = true;
+        player.GetComponent<NavMeshAgent>().SetDestination(transform.position);
     }
 }

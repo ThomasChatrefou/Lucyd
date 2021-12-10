@@ -4,47 +4,44 @@ using UnityEngine;
 
 public class LeverBehaviour : MonoBehaviour
 {
-    public bool on = false;
-    public float leverSpeed;
+    public float leverSpeed = 40;
+
+    public float percent = 0;
 
     private bool pullable = false;
-
-    private GameObject leverStick;
 
     private float currentRotation = 0;
     private float stepRotation;
     private float maxRotation = 90;
 
+    private Transform leverStick;
+
     // Start is called before the first frame update
     void Start()
     {
-        leverStick = transform.GetChild(1).gameObject;
+        leverStick = transform.GetChild(1);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         stepRotation = Time.deltaTime * leverSpeed;
 
         if (pullable)
         {
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(0))
             {
                 if(currentRotation < maxRotation)
                 {
-                    leverStick.transform.Rotate(stepRotation, 0, 0,Space.Self);
+                    leverStick.Rotate(stepRotation, 0, 0,Space.Self);
                     currentRotation += stepRotation;
-                }
-                else
-                {
-                    on = !on;
                 }
             }
             else
             {
                 if (currentRotation > 0)
                 {
-                    leverStick.transform.Rotate(-stepRotation, 0, 0, Space.Self);
+                    leverStick.Rotate(-stepRotation, 0, 0, Space.Self);
                     currentRotation -= stepRotation;
                 }
             }
@@ -53,7 +50,7 @@ public class LeverBehaviour : MonoBehaviour
         {
             if (currentRotation > 0)
             {
-                leverStick.transform.Rotate(-stepRotation, 0, 0, Space.Self);
+                leverStick.Rotate(-stepRotation, 0, 0, Space.Self);
                 currentRotation -= stepRotation;
             }
         }

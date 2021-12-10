@@ -15,7 +15,6 @@ public class CamsBehaviour : MonoBehaviour
     void Start()
     {
         constantOffset = transform.position - player.transform.position;
-
     }
 
     // Update is called once per frame

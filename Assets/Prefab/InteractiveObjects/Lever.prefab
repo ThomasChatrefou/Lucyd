@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 8662843161916576570}
   m_Layer: 0
   m_Name: Lever
-  m_TagString: Untagged
+  m_TagString: Lever
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -142,8 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e34fa4bca1dc204ca83d63d3dbaaa48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  on: 0
   leverSpeed: 40
+  percent: 0
 --- !u!65 &8662843161916576570
 BoxCollider:
   m_ObjectHideFlags: 0
