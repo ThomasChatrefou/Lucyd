@@ -9,6 +9,7 @@ public class Carriable : MonoBehaviour
     private bool isClicked;
     private float dist = 0;
     private GameObject player;
+   
     private GameObject shadow;
     public GameObject shadowPrefab;
     public Camera cam;
@@ -20,13 +21,28 @@ public class Carriable : MonoBehaviour
         carried = false;
         isClicked = false;
     }
+    //on clique sur la caisse en question
+    void OnMouseDown()
+    {
+        if (carried == false)
+        {
+            isClicked = true;
+            //on avance jusqu'a la caisse 
+            player.GetComponent<NavMeshAgent>().SetDestination(transform.position);
+        }
+        if (shadow)
+        {
+            Destroy(shadow);
+        }
 
-    // Update is called once per frame
+    }
+    
     void Update()
     {
+        player.GetComponent<NavMeshAgent>().isStopped = false;
         if (isClicked == true)
         {
-           
+           //si on clique alors qu'on a pas de caisse on porte une caisse ( bonne distance )
             if (carried == false)
             {
                 dist = Vector3.Distance(transform.position, player.transform.position);
@@ -47,18 +63,20 @@ public class Carriable : MonoBehaviour
         }
         else
         {
-            if (carried == true)
+            //si on porte une caisse alors une ombre apparait pour poser la caisse 
+            if (carried == true) 
             {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    carried = false;
-                    player.GetComponent<NavMeshAgent>().SetDestination(shadow.transform.position);
-                }
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
                 Physics.Raycast(ray, out hit);
 
                 shadow.transform.position = hit.point + new Vector3(0, 0.5f, 0);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    carried = false;
+                    player.GetComponent<NavMeshAgent>().SetDestination(shadow.transform.position);
+                }
+                
             }
             else if (shadow)
             {
@@ -66,10 +84,12 @@ public class Carriable : MonoBehaviour
                 if (dist <= 1.5f)
                 {
                     player.GetComponent<NavMeshAgent>().isStopped = true;
+                    
                     transform.position = shadow.transform.position;
                     GetComponent<Rigidbody>().isKinematic = false;
                     transform.parent = null;
                     carried = false;
+                    
                     GetComponent<NavMeshObstacle>().enabled = true;
                     Destroy(shadow);
                 }
@@ -78,9 +98,5 @@ public class Carriable : MonoBehaviour
     }
 
 
-    void OnMouseDown()
-    {
-        isClicked = true;
-        player.GetComponent<NavMeshAgent>().SetDestination(transform.position);
-    }
+   
 }

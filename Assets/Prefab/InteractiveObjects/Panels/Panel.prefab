@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2977587527144473064}
   - component: {fileID: -7235500890461502969}
   - component: {fileID: 2360388359650972582}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
