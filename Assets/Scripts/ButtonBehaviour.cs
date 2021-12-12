@@ -15,6 +15,7 @@ public class ButtonBehaviour : MonoBehaviour
 
     private bool isClicked = false;
     private bool pushable = false;
+    private bool inDarkWorld = false;
 
     private float disablingCountDown;
     private float canHitAgain;
@@ -24,58 +25,96 @@ public class ButtonBehaviour : MonoBehaviour
 
     private Transform button;
 
+    private Collider clickableCollider;
+
     private GameObject player;
 
+    private Camera cam;
 
     // Start is called before the first frame update
     void Start()
     {
+        cam = GameManager.instance.darkWorldCamera;
+
         player = GameObject.FindWithTag("Player");
+
+        clickableCollider = transform.GetComponent<Collider>();
+
         button = transform.GetChild(1);
         buttonDownDistance = button.lossyScale.y;
         buttonOriginalY = button.position.y;
         buttonReturnSpeed = buttonDownDistance / antiSpamDelay;
+        
+        if (gameObject.layer == 6 || gameObject.layer == 8)
+            inDarkWorld = false;
+        else if (gameObject.layer == 7 || gameObject.layer == 9)
+            inDarkWorld = true;
     }
+
+
+    void CustomMouseDown()
+    {
+        if (Input.GetMouseButton(0) && canHitAgain < Time.time)
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider == clickableCollider)
+                {
+                    isClicked = true;
+                    player.GetComponent<NavMeshAgent>().SetDestination(clickableCollider.transform.position);
+                }
+            }
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        print(transform.position + "    " + on);
-        if (pushable && isClicked && canHitAgain < Time.time)
+        if (inDarkWorld == GameManager.instance.darkWorld)
         {
-            isClicked = false;
+            CustomMouseDown();
 
-            if (canBeDisabledByHitAgain)
+            if (pushable && isClicked && canHitAgain < Time.time)
             {
-                if(hasTimer && !on)
-                    disablingCountDown = Time.time + enabledDuration;
+                isClicked = false;
 
-                button.position -= new Vector3(0, buttonDownDistance, 0);
-                on = !on;
-            }
-            else
-            {
-                if (hasTimer)
+                if (canBeDisabledByHitAgain)
                 {
-                    disablingCountDown = Time.time + enabledDuration;
+                    if (hasTimer && !on)
+                        disablingCountDown = Time.time + enabledDuration;
+
                     button.position -= new Vector3(0, buttonDownDistance, 0);
+                    on = !on;
                 }
                 else
                 {
-                    if (!on)
+                    if (hasTimer)
+                    {
+                        disablingCountDown = Time.time + enabledDuration;
                         button.position -= new Vector3(0, buttonDownDistance, 0);
+                    }
+                    else
+                    {
+                        if (!on)
+                            button.position -= new Vector3(0, buttonDownDistance, 0);
+                    }
+                    on = true;
                 }
-                on = true;
-            }
 
-            canHitAgain = Time.time + antiSpamDelay;
+                canHitAgain = Time.time + antiSpamDelay;
+            }
         }
 
         if (hasTimer && disablingCountDown < Time.time)
             on = false;
-
+        
         if (button.position.y < buttonOriginalY)
             button.position += new Vector3(0, Time.deltaTime * buttonReturnSpeed, 0);
+        
     }
 
 
@@ -90,12 +129,5 @@ public class ButtonBehaviour : MonoBehaviour
     {
         if (other.CompareTag("Player"))
             pushable = false;
-    }
-
-    void OnMouseDown()
-    {
-        if (canHitAgain < Time.time)
-            isClicked = true;
-        player.GetComponent<NavMeshAgent>().SetDestination(transform.position);
     }
 }

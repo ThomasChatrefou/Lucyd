@@ -98,7 +98,7 @@ GameObject:
   m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6341205298585232183
 Transform:
@@ -142,7 +142,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -158,10 +158,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0223ad2db21edde45991c5956654f11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canBeDisabledByHitAgain: 1
   hasTimer: 0
   enabledDuration: 0
-  canBeDisabledByHitAgain: 1
-  buttonReturnSpeed: 0.1
   antiSpamDelay: 1
   on: 0
 --- !u!1 &6341205299342896141
