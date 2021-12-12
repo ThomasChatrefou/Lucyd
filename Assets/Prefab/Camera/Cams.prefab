@@ -55,6 +55,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2572577653044845466}
     m_Modifications:
+    - target: {fileID: 2802258535288103661, guid: 4392509e59e87364f9e3f4adac23ccb1, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 695
+      objectReference: {fileID: 0}
     - target: {fileID: 2802258535288103662, guid: 4392509e59e87364f9e3f4adac23ccb1, type: 3}
       propertyPath: m_Name
       value: DarkWorld
@@ -120,6 +124,10 @@ PrefabInstance:
     - target: {fileID: 1824630581319074824, guid: 6ff388208d07c0e49ae2091e5c13e398, type: 3}
       propertyPath: m_Name
       value: LightWorld
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824630581319074829, guid: 6ff388208d07c0e49ae2091e5c13e398, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 375
       objectReference: {fileID: 0}
     - target: {fileID: 1824630581319074831, guid: 6ff388208d07c0e49ae2091e5c13e398, type: 3}
       propertyPath: m_RootOrder
