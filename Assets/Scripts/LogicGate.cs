@@ -13,6 +13,7 @@ public class LogicGate : MonoBehaviour
     private List<ButtonBehaviour> buttons = new List<ButtonBehaviour>();
     private List<PressBehaviour> presses = new List<PressBehaviour>();
     private List<LeverBehaviour> levers = new List<LeverBehaviour>();
+    private List<LogicGate> gates = new List<LogicGate>();
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,9 @@ public class LogicGate : MonoBehaviour
 
                 if (obj.CompareTag("Lever"))
                     levers.Add(obj.GetComponent<LeverBehaviour>());
+
+                if (obj.CompareTag("LogicGate"))
+                    gates.Add(obj.GetComponent<LogicGate>());
             }
         }
     }
@@ -55,10 +59,13 @@ public class LogicGate : MonoBehaviour
         {
             output = 1;
 
-            if (levers.Count > 0)
+            if (levers.Count + gates.Count > 0)
             {
-                foreach(LeverBehaviour lever in levers)
+                foreach (LeverBehaviour lever in levers)
                     leversSum += lever.percent;
+
+                foreach (LogicGate gate in gates)
+                    leversSum += gate.output;
 
                 if (leversSum > 1)
                     leversSum = 1;
