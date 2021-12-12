@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8621154924955451628}
+  - component: {fileID: 8621154924955451629}
   - component: {fileID: 8621154924955451630}
   - component: {fileID: 8621154924955451631}
   - component: {fileID: 8621154924955451536}
   - component: {fileID: 8621154924955451537}
   - component: {fileID: 8621154924955451538}
-  - component: {fileID: -225894933352192423}
   m_Layer: 0
   m_Name: Box
   m_TagString: MovableObject
@@ -36,6 +36,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8621154924955451629
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8621154924955451539}
+  m_Mesh: {fileID: 8480126340360389092, guid: ce7084bcf803a3044aefb8ea6b348688, type: 3}
 --- !u!23 &8621154924955451630
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -136,11 +144,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowPrefab: {fileID: 4526524997302427832, guid: cf59232d119faeb429f5427f83b4cde2, type: 3}
   cam: {fileID: 0}
---- !u!33 &-225894933352192423
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8621154924955451539}
-  m_Mesh: {fileID: 8480126340360389092, guid: ce7084bcf803a3044aefb8ea6b348688, type: 3}
