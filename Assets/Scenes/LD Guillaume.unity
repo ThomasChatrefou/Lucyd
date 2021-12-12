@@ -417,7 +417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8621154924955451628, guid: e935c0f361726c34785f093fef442633, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -40.69
+      value: -41.6
       objectReference: {fileID: 0}
     - target: {fileID: 8621154924955451628, guid: e935c0f361726c34785f093fef442633, type: 3}
       propertyPath: m_LocalPosition.y
@@ -425,7 +425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8621154924955451628, guid: e935c0f361726c34785f093fef442633, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.53
+      value: 28.63
       objectReference: {fileID: 0}
     - target: {fileID: 8621154924955451628, guid: e935c0f361726c34785f093fef442633, type: 3}
       propertyPath: m_LocalRotation.w
@@ -455,6 +455,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8621154924955451630, guid: e935c0f361726c34785f093fef442633, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c7ae52f828110c645922d6caaf150806, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e935c0f361726c34785f093fef442633, type: 3}
 --- !u!1001 &461477550
@@ -1464,7 +1468,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927873961}
   m_LocalRotation: {x: -0, y: -0.000005409121, z: -0, w: -1}
-  m_LocalPosition: {x: -7.866991, y: -1.8988656, z: -11.220016}
+  m_LocalPosition: {x: -8.42, y: -1.8988656, z: -11.220016}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2003376854}
@@ -1964,7 +1968,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1519191125}
   m_LocalRotation: {x: -0, y: -0.00000034272668, z: -0, w: 1}
-  m_LocalPosition: {x: -0.87, y: -1.8988656, z: -11.22}
+  m_LocalPosition: {x: -1.423009, y: -1.8988656, z: -11.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2003376854}
@@ -2234,6 +2238,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2599978195862319637, guid: 6347f1aa8d3346e4aa45c8031a382365, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc2d2d70d168acd489a966ad4a1f75c1, type: 2}
     - target: {fileID: 6130164935234702610, guid: 6347f1aa8d3346e4aa45c8031a382365, type: 3}
       propertyPath: m_Name
       value: PressJoli
@@ -2313,7 +2321,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2003376853}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -32.400578, y: 1.6488656, z: 26.333275}
+  m_LocalPosition: {x: -32.17, y: 1.6488656, z: 26.333275}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2051394823}
