@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
 
     public Camera darkWorldCamera;
 
-
     private bool mainCam = false;
     private float timer;
 
@@ -87,6 +86,9 @@ public class GameManager : MonoBehaviour
             obs.enabled = !obs.enabled;
 
         darkWorld = !darkWorld;
+
+        foreach (NavMeshObstacle obs in lwObstacles)
+            print(obs.enabled);
     }
 
 
