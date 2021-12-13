@@ -28,10 +28,13 @@ public class Carriable : MonoBehaviour
         {
             isClicked = true;
             //on avance jusqu'a la caisse 
-            player.GetComponent<NavMeshAgent>().SetDestination(transform.position);
+            player.GetComponent<NavMeshAgent>().SetDestination(transform.position - new Vector3(0.8f,0.8f,0.8f));
         }
         if (shadow)
         {
+            GetComponent<Rigidbody>().isKinematic = false;
+            transform.parent = null;
+            carried = false;
             Destroy(shadow);
         }
 
@@ -71,10 +74,12 @@ public class Carriable : MonoBehaviour
                 Physics.Raycast(ray, out hit);
 
                 shadow.transform.position = hit.point + new Vector3(0, 0.5f, 0);
+                
                 if (Input.GetMouseButtonDown(0))
                 {
                     carried = false;
-                    player.GetComponent<NavMeshAgent>().SetDestination(shadow.transform.position);
+                    
+                    player.GetComponent<NavMeshAgent>().SetDestination(shadow.transform.position );
                 }
                 
             }
@@ -83,14 +88,15 @@ public class Carriable : MonoBehaviour
                 dist = Vector3.Distance(player.transform.position, shadow.transform.position);
                 if (dist <= 1.5f)
                 {
-                    player.GetComponent<NavMeshAgent>().isStopped = true;
                     
                     transform.position = shadow.transform.position;
                     GetComponent<Rigidbody>().isKinematic = false;
                     transform.parent = null;
                     carried = false;
-                    
                     GetComponent<NavMeshObstacle>().enabled = true;
+                    player.GetComponent<NavMeshAgent>().SetDestination(player.transform.position - new Vector3(0.2f, 0.2f,0.2f));
+
+
                     Destroy(shadow);
                 }
             }
