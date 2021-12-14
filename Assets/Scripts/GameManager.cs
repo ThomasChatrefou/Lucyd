@@ -15,10 +15,10 @@ public class GameManager : MonoBehaviour
 
     public Camera darkWorldCamera;
 
-    private bool mainCam = false;
     private float timer;
 
     private GameObject renderScreen;
+    private NavMeshAgent playerAgent;
 
     private List<Collider> lwColliders = new List<Collider>();
     private List<Collider> dwColliders = new List<Collider>();
@@ -30,16 +30,50 @@ public class GameManager : MonoBehaviour
     private void FillWorldLists(GameObject world, 
         ref List<Collider> colliders, ref List<NavMeshObstacle> obstacles)
     {
+        Transform child;
+        Collider col;
+        NavMeshObstacle nmo;
+
         for (int i = 0; i < world.transform.childCount; ++i)
         {
-            Collider col = world.transform.GetChild(i).GetComponent<Collider>();
-            if (col)
+            child = world.transform.GetChild(i);
+
+            if (child.CompareTag("Door")){
+                colliders.Add(child.transform.GetChild(0).GetComponent<Collider>());
+                colliders.Add(child.transform.GetChild(1).GetComponent<Collider>());
+
+                obstacles.Add(child.transform.GetChild(0).GetComponent<NavMeshObstacle>());
+                obstacles.Add(child.transform.GetChild(1).GetComponent<NavMeshObstacle>());
+            }
+
+            col = child.GetComponent<Collider>();
+            if (col && !child.CompareTag("Ground"))
                 colliders.Add(col);
 
-            NavMeshObstacle nmo = world.transform.GetChild(i).GetComponent<NavMeshObstacle>();
+            nmo = child.GetComponent<NavMeshObstacle>();
             if (nmo)
                 obstacles.Add(nmo);
         }
+    }
+
+
+    private void ToggleColliders(ref List<Collider> enabling, ref List<Collider> disabling)
+    {
+        foreach (Collider col in enabling)
+            col.enabled = true;
+
+        foreach (Collider col in disabling)
+            col.enabled = false;
+    }
+
+
+    private void ToggleObstacles(ref List<NavMeshObstacle> enabling, ref List<NavMeshObstacle> disabling)
+    {
+        foreach (NavMeshObstacle obs in enabling)
+            obs.enabled = true;
+
+        foreach (NavMeshObstacle obs in disabling)
+            obs.enabled = false;
     }
 
 
@@ -52,6 +86,7 @@ public class GameManager : MonoBehaviour
 
         timer = 0;
         renderScreen = GameObject.Find("Canvas");
+        playerAgent = GameObject.FindWithTag("Player").GetComponent<NavMeshAgent>();
 
         FillWorldLists(lightWorldEnvironment, ref lwColliders, ref lwObstacles);
         FillWorldLists(darkWorldEnvironment, ref dwColliders, ref dwObstacles);
@@ -66,29 +101,26 @@ public class GameManager : MonoBehaviour
 
     public void ScreenFade()
     {
-        if (mainCam)
+        if (darkWorld)
+        {
             renderScreen.GetComponentInChildren<Animation>().Play("CrossFade");
+
+            ToggleColliders(ref lwColliders, ref dwColliders);
+            ToggleObstacles(ref lwObstacles, ref dwObstacles);
+
+            playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID;
+        }
         else
+        {
             renderScreen.GetComponentInChildren<Animation>().Play("CrossFadeRev");
 
-        mainCam = !mainCam;
+            ToggleColliders(ref dwColliders, ref lwColliders);
+            ToggleObstacles(ref dwObstacles, ref lwObstacles);
 
-        foreach (Collider col in dwColliders)
-            col.enabled = !col.enabled;
-
-        foreach (NavMeshObstacle obs in dwObstacles)
-            obs.enabled = !obs.enabled;
-
-        foreach (Collider col in lwColliders)
-            col.enabled = !col.enabled;
-
-        foreach (NavMeshObstacle obs in lwObstacles)
-            obs.enabled = !obs.enabled;
+            playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
+        }
 
         darkWorld = !darkWorld;
-
-        foreach (NavMeshObstacle obs in lwObstacles)
-            print(obs.enabled);
     }
 
 

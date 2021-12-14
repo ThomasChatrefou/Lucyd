@@ -9,6 +9,8 @@ TagManager:
   - Press
   - Lever
   - LogicGate
+  - Door
+  - Ground
   layers:
   - Default
   - TransparentFX

@@ -7,13 +7,11 @@ public class CharacterMovement : MonoBehaviour
 {
     public Camera cam;
     public NavMeshAgent agent;
-    private LayerMask LWall;
-    private LayerMask DWall;
+    private LayerMask mask;
 
     private void Start()
     {
-        LWall = 8;
-        DWall = 9;
+
     }
 
     void Update()
@@ -24,7 +22,13 @@ public class CharacterMovement : MonoBehaviour
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 1000f, LWall) || Physics.Raycast(ray, out hit, 1000f, DWall))
+            if (GameManager.instance.darkWorld)
+                mask = LayerMask.GetMask("DarkWorld");
+            else
+                mask = LayerMask.GetMask("LightWorld");
+
+            if (Physics.Raycast(ray, out hit, 1000f, mask) || 
+                Physics.Raycast(ray, out hit, 1000f, LayerMask.GetMask("Default")))
             {
                 agent.SetDestination(hit.point);
             }
