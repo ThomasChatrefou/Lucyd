@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject renderScreen;
     private NavMeshAgent playerAgent;
+    private NavMeshAgent feumanAgent;
 
     private List<Collider> lwColliders = new List<Collider>();
     private List<Collider> dwColliders = new List<Collider>();
@@ -87,6 +88,7 @@ public class GameManager : MonoBehaviour
         timer = 0;
         renderScreen = GameObject.Find("Canvas");
         playerAgent = GameObject.FindWithTag("Player").GetComponent<NavMeshAgent>();
+        feumanAgent = GameObject.FindWithTag("Follower").GetComponent<NavMeshAgent>();
 
         FillWorldLists(lightWorldEnvironment, ref lwColliders, ref lwObstacles);
         FillWorldLists(darkWorldEnvironment, ref dwColliders, ref dwObstacles);
@@ -109,6 +111,7 @@ public class GameManager : MonoBehaviour
             ToggleObstacles(ref lwObstacles, ref dwObstacles);
 
             playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID;
+            feumanAgent.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID;
         }
         else
         {
@@ -118,6 +121,7 @@ public class GameManager : MonoBehaviour
             ToggleObstacles(ref dwObstacles, ref lwObstacles);
 
             playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
+            feumanAgent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
         }
 
         darkWorld = !darkWorld;
