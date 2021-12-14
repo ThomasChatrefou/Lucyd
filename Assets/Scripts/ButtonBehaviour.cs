@@ -64,7 +64,12 @@ public class ButtonBehaviour : MonoBehaviour
                 if (hit.collider == clickableCollider)
                 {
                     isClicked = true;
-                    player.GetComponent<NavMeshAgent>().SetDestination(clickableCollider.transform.position);
+                    NavMeshAgent agent = player.GetComponent<NavMeshAgent>();
+
+                    Vector3 buttonAvoidance = agent.radius * Vector3.Normalize(player.transform.position - clickableCollider.transform.position);
+                    Vector3 dest = clickableCollider.transform.position + buttonAvoidance;
+
+                    agent.SetDestination(dest);
                 }
             }
         }
