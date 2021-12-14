@@ -144,3 +144,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowPrefab: {fileID: 4526524997302427832, guid: cf59232d119faeb429f5427f83b4cde2, type: 3}
   cam: {fileID: 0}
+  DistBrasx: 0
+  DistBrasy: 0
