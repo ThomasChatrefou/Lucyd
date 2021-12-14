@@ -7,7 +7,7 @@ public class Carriable : MonoBehaviour
 {
     private bool carried;
     private bool isClicked;
-    private bool CanPose;
+    
     private float dist = 0;
     private GameObject player;
    
@@ -17,16 +17,15 @@ public class Carriable : MonoBehaviour
     RaycastHit hit;
 
     //variable de debug 
-   /* public float DistBrasx=0;
-    public float DistBrasy=0;*/
-    
+    /* public float DistBrasx=0;
+     public float DistBrasy=0;*/
+
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         carried = false;
         isClicked = false;
-        CanPose = false;
-}
+    } 
     //on clique sur la caisse en question
     void OnMouseDown()
     {
