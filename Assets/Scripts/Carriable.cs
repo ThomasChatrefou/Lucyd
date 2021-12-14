@@ -49,7 +49,7 @@ public class Carriable : MonoBehaviour
             if (carried == false)
             {
                 dist = Vector3.Distance(transform.position, player.transform.position);
-                if (dist <= 1.5f)
+                if (dist <= 2f)
                 {
                     carried = true;
                     GetComponent<NavMeshObstacle>().enabled = false;
@@ -86,7 +86,7 @@ public class Carriable : MonoBehaviour
             else if (shadow)
             {
                 dist = Vector3.Distance(player.transform.position, shadow.transform.position);
-                if (dist <= 1.5f)
+                if (dist <= 2f)
                 {
                     
                     transform.position = shadow.transform.position;
