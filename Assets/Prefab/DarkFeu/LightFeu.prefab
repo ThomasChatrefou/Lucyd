@@ -394,9 +394,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7915002319393473219}
   - component: {fileID: 8924292814992486897}
+  - component: {fileID: 6475145570523154531}
   - component: {fileID: 3143173426582162127}
   m_Layer: 0
-  m_Name: DarkFeu
+  m_Name: LightFeu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -431,6 +432,18 @@ CapsuleCollider:
   m_Height: 5.11
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6475145570523154531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933755377602570686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 891dfb5fa56076146ab7dc2cd63ca6d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3143173426582162127
 MonoBehaviour:
   m_ObjectHideFlags: 0

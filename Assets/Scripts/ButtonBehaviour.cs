@@ -86,9 +86,6 @@ public class ButtonBehaviour : MonoBehaviour
         if (inDarkWorld == GameManager.instance.darkWorld)
         {
             CustomMouseDown();
-            print("Pushable:" + pushable);
-            print("IsClicked" + isClicked);
-            print("canHitAgain" + canHitAgain);
             if (pushable && isClicked && canHitAgain < Time.time)
             {
                 isClicked = false;
