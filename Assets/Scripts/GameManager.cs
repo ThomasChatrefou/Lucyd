@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
         }
 
         darkWorld = !darkWorld;
+        timer = cooldown;
     }
 
 
@@ -133,7 +134,6 @@ public class GameManager : MonoBehaviour
         if (Input.GetAxis("Jump") > 0 && timer < 0)
         {
             ScreenFade();
-            timer = cooldown;
         }
         timer -= Time.deltaTime;
     }
