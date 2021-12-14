@@ -5,41 +5,27 @@ using UnityEngine.AI;
 
 public class TorchBehaviour : MonoBehaviour
 {
-    public bool Lighted;
-    private bool Clicked;
-    public float SafetyDistance;
-    private GameObject Player;
+    private ButtonBehaviour Button;
+    public bool lighted;
     // Start is called before the first frame update
 
     // Update is called once per frame
     private void Start()
     {
-        Player = GameObject.FindGameObjectWithTag("Player");
-        transform.GetChild(0).gameObject.SetActive(Lighted);
+        Button = GetComponent<ButtonBehaviour>();
+        transform.GetChild(0).gameObject.SetActive(lighted);
     }
 
     void Update()
     {
-        if (Lighted == false)
+        if (lighted == false)
         {
-            if (Clicked == true)
+            if(Button.on)
             {
-                if(Vector3.Distance(Player.transform.position, transform.position) > SafetyDistance)
-                {
-                    Player.GetComponent<NavMeshAgent>().SetDestination(transform.position);
-                }
-                else
-                {
-                    Clicked = false;
-                    Lighted = true;
-                    transform.GetChild(0).gameObject.SetActive(true);
-                }
+                transform.GetChild(0).gameObject.SetActive(true);
+                lighted = true;
             }
         }
     }
 
-    private void OnMouseDown()
-    {
-        Clicked = true;
-    }
 }

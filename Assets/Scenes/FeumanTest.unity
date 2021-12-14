@@ -5328,6 +5328,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2605763874775724383, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2605763874775724383, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
       propertyPath: SafetyDistance
       value: 2
       objectReference: {fileID: 0}

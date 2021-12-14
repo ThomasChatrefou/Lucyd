@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 885271913737887340}
   - component: {fileID: 757761222735359816}
   - component: {fileID: 2605763874775724383}
-  - component: {fileID: 6321335328747874362}
-  m_Layer: 0
+  - component: {fileID: 1797500403614328789}
+  - component: {fileID: 5489588208391306800}
+  m_Layer: 6
   m_Name: Torch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,9 +97,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb9a8c500a656d4499a2e6a2b7963aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lighted: 0
-  SafetyDistance: 0
---- !u!65 &6321335328747874362
+  lighted: 0
+--- !u!114 &1797500403614328789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446269232467340160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0223ad2db21edde45991c5956654f11f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBeDisabledByHitAgain: 0
+  hasTimer: 0
+  enabledDuration: 0
+  antiSpamDelay: 1
+  on: 0
+--- !u!65 &5489588208391306800
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,11 +123,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5446269232467340160}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.6055644, y: 2.0013106, z: 0.9654004}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.6055644, y: 4.9089136, z: 0.9654004}
+  m_Center: {x: 0, y: -1.4538016, z: 0}
 --- !u!1001 &748064044427446853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -118,9 +135,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6953134556991860819}
     m_Modifications:
+    - target: {fileID: 1001005852633408, guid: e55149ba6f4d00741984987e258c3378, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1230862096963796, guid: e55149ba6f4d00741984987e258c3378, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393688157360954, guid: e55149ba6f4d00741984987e258c3378, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497415103117672, guid: e55149ba6f4d00741984987e258c3378, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1725317912486240, guid: e55149ba6f4d00741984987e258c3378, type: 3}
       propertyPath: m_Name
       value: Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725317912486240, guid: e55149ba6f4d00741984987e258c3378, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4274653050354540, guid: e55149ba6f4d00741984987e258c3378, type: 3}
       propertyPath: m_RootOrder

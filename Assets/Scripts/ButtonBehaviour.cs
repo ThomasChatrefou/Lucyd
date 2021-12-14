@@ -39,11 +39,15 @@ public class ButtonBehaviour : MonoBehaviour
         player = GameObject.FindWithTag("Player");
 
         clickableCollider = transform.GetComponent<Collider>();
+        if(transform.childCount > 1)
+            button = transform.GetChild(1);
+        if(button)
+        {
+            buttonDownDistance = button.lossyScale.y;
+            buttonOriginalY = button.position.y;
+            buttonReturnSpeed = buttonDownDistance / antiSpamDelay;
+        }
 
-        button = transform.GetChild(1);
-        buttonDownDistance = button.lossyScale.y;
-        buttonOriginalY = button.position.y;
-        buttonReturnSpeed = buttonDownDistance / antiSpamDelay;
         
         if (gameObject.layer == 6 || gameObject.layer == 8)
             inDarkWorld = false;
@@ -82,7 +86,9 @@ public class ButtonBehaviour : MonoBehaviour
         if (inDarkWorld == GameManager.instance.darkWorld)
         {
             CustomMouseDown();
-
+            print("Pushable:" + pushable);
+            print("IsClicked" + isClicked);
+            print("canHitAgain" + canHitAgain);
             if (pushable && isClicked && canHitAgain < Time.time)
             {
                 isClicked = false;
@@ -91,8 +97,8 @@ public class ButtonBehaviour : MonoBehaviour
                 {
                     if (hasTimer && !on)
                         disablingCountDown = Time.time + enabledDuration;
-
-                    button.position -= new Vector3(0, buttonDownDistance, 0);
+                    if (button)
+                        button.position -= new Vector3(0, buttonDownDistance, 0);
                     on = !on;
                 }
                 else
@@ -100,12 +106,15 @@ public class ButtonBehaviour : MonoBehaviour
                     if (hasTimer)
                     {
                         disablingCountDown = Time.time + enabledDuration;
-                        button.position -= new Vector3(0, buttonDownDistance, 0);
+                        if (button)
+                            button.position -= new Vector3(0, buttonDownDistance, 0);
                     }
                     else
                     {
-                        if (!on)
+                        if (!on && button)
+                        {
                             button.position -= new Vector3(0, buttonDownDistance, 0);
+                        }
                     }
                     on = true;
                 }
@@ -117,9 +126,11 @@ public class ButtonBehaviour : MonoBehaviour
         if (hasTimer && disablingCountDown < Time.time)
             on = false;
         
-        if (button.position.y < buttonOriginalY)
-            button.position += new Vector3(0, Time.deltaTime * buttonReturnSpeed, 0);
-        
+        if(button)
+        {
+            if (button.position.y < buttonOriginalY)
+                button.position += new Vector3(0, Time.deltaTime * buttonReturnSpeed, 0);
+        }
     }
 
 
