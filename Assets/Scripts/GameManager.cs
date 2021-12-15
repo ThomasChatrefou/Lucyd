@@ -7,11 +7,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
 
+    public Collider LightChildOfDark;
+
     public bool darkWorld = false;
     public float cooldown;
 
     public GameObject lightWorldEnvironment;
     public GameObject darkWorldEnvironment;
+    public GameObject MagicCrate;
 
     public Camera darkWorldCamera;
 
@@ -102,6 +105,8 @@ public class GameManager : MonoBehaviour
 
         DarkFeu = GameObject.Find("DarkFeu").GetComponent<ButtonBehaviour>();
         LightFeu = GameObject.Find("LightFeu").GetComponent<ButtonBehaviour>();
+
+        LightChildOfDark.transform.SetParent(MagicCrate.transform);
     }
 
 
@@ -138,6 +143,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetAxis("Jump") > 0 && timer < 0)
         {
             ScreenFade();
+            LightFeu.on = !LightFeu.on;
         }
         timer -= Time.deltaTime;
 
