@@ -10,23 +10,28 @@ public class Carriable : MonoBehaviour
     
     private float dist = 0;
     private GameObject player;
+    private float agentRadius;
    
     private GameObject shadow;
     public GameObject shadowPrefab;
     public Camera cam;
+
     RaycastHit hit;
 
-    //variable de debug 
-    /* public float DistBrasx=0;
-     public float DistBrasy=0;*/
+    private LayerMask mask;
+
+    private Collider clickableCollider;
 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        agentRadius = player.GetComponent<NavMeshAgent>().radius;
         carried = false;
         isClicked = false;
+        clickableCollider = transform.GetComponent<Collider>();
     } 
-    //on clique sur la caisse en question
+
+    /*
     void OnMouseDown()
     {
         if (carried == false)
@@ -43,10 +48,57 @@ public class Carriable : MonoBehaviour
             Destroy(shadow);
         }
 
+    }*/
+
+    void CustomMouseDown()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            if (GameManager.instance.darkWorld)
+                mask = LayerMask.GetMask("DarkWorld");
+            else
+                mask = LayerMask.GetMask("LightWorld");
+
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 1000f, mask))
+            {
+                if (hit.collider == clickableCollider)
+                {
+                    if (carried == false)
+                    {
+                        isClicked = true;
+                        //on avance jusqu'a la caisse 
+                        player.GetComponent<NavMeshAgent>().SetDestination(transform.position - new Vector3(0.8f, 0.8f, 0.8f));
+                    }
+                    else
+                    {
+                        /*
+                        if (hit.point.y <= player.transform.position.y - 0.55f || (hit.point.y <= player.transform.position.y - 0.55f && hit.point.x >= player.transform.position.x + 0.5f))
+                        {
+                            shadow.transform.position = hit.point + new Vector3(0, 0.5f, 0);
+
+                            carried = false;
+                            player.GetComponent<NavMeshAgent>().SetDestination(shadow.transform.position);
+                        }*/
+                    }
+                    if (shadow)
+                    {
+                        GetComponent<Rigidbody>().isKinematic = false;
+                        transform.parent = null;
+                        carried = false;
+                        Destroy(shadow);
+                    }
+                }
+            }
+        }
     }
-    
+
+
     void Update()
     {
+        CustomMouseDown();
         player.GetComponent<NavMeshAgent>().isStopped = false;
         if (isClicked == true)
         {
@@ -75,27 +127,40 @@ public class Carriable : MonoBehaviour
             //si on essaye de viser un point trop haut l'ombre ne s'affiche pas 
             if (carried == true) 
             {
+
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-                Physics.Raycast(ray, out hit);
-                
-                if ( hit.point.y <= player.transform.position.y -0.55f || (hit.point.y <= player.transform.position.y - 0.55f && hit.point.x >= player.transform.position.x +0.5f))
-                {
-                    shadow.transform.position = hit.point + new Vector3(0, 0.5f, 0);
+                Physics.Raycast(ray, out hit, 1000f, mask);
 
-                    if (Input.GetMouseButtonDown(0))
+                if (hit.transform)
+                {
+                    if (hit.transform.CompareTag("Player") || hit.collider == clickableCollider)
                     {
-                        carried = false;
-                        player.GetComponent<NavMeshAgent>().SetDestination(shadow.transform.position);
+                        shadow.transform.position = transform.position - Vector3.up * 0.5f;
+                        if (Input.GetMouseButtonDown(0))
+                            carried = false;
+                    }
+                    else
+                    {
+                        NavMeshHit navHit;
+                        
+                        bool hitsNavMesh = false;
+                        
+                        hitsNavMesh = !NavMesh.Raycast(hit.point, hit.point, out navHit, NavMesh.AllAreas);
+
+                        if (hitsNavMesh)
+                        {
+                            shadow.transform.position = hit.point + new Vector3(0, 0.5f, 0);
+
+                            if (Input.GetMouseButtonDown(0))
+                            {
+                                carried = false;
+                                player.GetComponent<NavMeshAgent>().SetDestination(shadow.transform.position);
+                            }
+                        }
                     }
                 }
-                else
-                {
-                    //print("c'est hors de porté");
-                }
 
-                    
-                
             }
             else if (shadow)
             {
@@ -114,6 +179,8 @@ public class Carriable : MonoBehaviour
                     Destroy(shadow);
                 }
             }
+
+
         }
     }
 
