@@ -5,19 +5,25 @@ using UnityEngine;
 public class LightFeuBehaviour : MonoBehaviour
 {
     private ButtonBehaviour Button;
-    bool darkWorld;
-
+    private Vector3 HidingSpot;
+    private Vector3 GoodSpot;
     private void Start()
     {
-        Button = GetComponent<ButtonBehaviour>();
-        darkWorld = GameManager.instance.darkWorld;
+        GoodSpot = transform.position;
+        HidingSpot = transform.position + Vector3.down * 5f;
     }
 
     void Update()
     {
-        if (Button.on && GameManager.instance.darkWorld)
+        if (GameManager.instance.darkWorld == true)
         {
-            GameManager.instance.ScreenFade();
+            transform.position = HidingSpot;
+        }
+        else if (GameManager.instance.darkWorld == false)
+        {
+            transform.position = GoodSpot;
         }
     }
+
+
 }
