@@ -29,22 +29,27 @@ public class GameManager : MonoBehaviour
 
     private List<NavMeshObstacle> lwObstacles = new List<NavMeshObstacle>();
     private List<NavMeshObstacle> dwObstacles = new List<NavMeshObstacle>();
+    
+    private List<Rigidbody> lwRigidbody = new List<Rigidbody>();
+    private List<Rigidbody> dwRigidbody = new List<Rigidbody>();
+
 
     private ButtonBehaviour DarkFeu;
-    private ButtonBehaviour LightFeu;
 
     private void FillWorldLists(GameObject world,
-        ref List<Collider> colliders, ref List<NavMeshObstacle> obstacles)
+        ref List<Collider> colliders, ref List<NavMeshObstacle> obstacles, ref List<Rigidbody> rigidbody)
     {
         Transform child;
         Collider col;
         NavMeshObstacle nmo;
+        Rigidbody rb;
 
         for (int i = 0; i < world.transform.childCount; ++i)
         {
             child = world.transform.GetChild(i);
 
-            if (child.CompareTag("Door")) {
+            if (child.CompareTag("Door")) 
+            {
                 colliders.Add(child.transform.GetChild(0).GetComponent<Collider>());
                 colliders.Add(child.transform.GetChild(1).GetComponent<Collider>());
 
@@ -59,6 +64,10 @@ public class GameManager : MonoBehaviour
             nmo = child.GetComponent<NavMeshObstacle>();
             if (nmo)
                 obstacles.Add(nmo);
+
+            rb = child.GetComponent<Rigidbody>();
+            if (rb && child.CompareTag("MovableObject"))
+                rigidbody.Add(rb);
         }
     }
 
@@ -81,6 +90,15 @@ public class GameManager : MonoBehaviour
             obs.enabled = false;
     }
 
+    private void ToggleRigidBodies(ref List<Rigidbody> enabling, ref List<Rigidbody> disabling)
+    {
+        foreach (Rigidbody rb in enabling)
+            rb.isKinematic = false;
+
+        foreach (Rigidbody rb in disabling)
+            rb.isKinematic = true;
+    }
+
 
     private void Awake()
     {
@@ -94,14 +112,17 @@ public class GameManager : MonoBehaviour
         playerAgent = GameObject.FindWithTag("Player").GetComponent<NavMeshAgent>();
         feumanAgent = GameObject.FindWithTag("Follower").GetComponent<NavMeshAgent>();
 
-        FillWorldLists(lightWorldEnvironment, ref lwColliders, ref lwObstacles);
-        FillWorldLists(darkWorldEnvironment, ref dwColliders, ref dwObstacles);
+        FillWorldLists(lightWorldEnvironment, ref lwColliders, ref lwObstacles, ref lwRigidbody);
+        FillWorldLists(darkWorldEnvironment, ref dwColliders, ref dwObstacles, ref dwRigidbody);
 
         foreach(Collider col in dwColliders)
             col.enabled = false;
 
         foreach(NavMeshObstacle obs in dwObstacles)
             obs.enabled = false;
+
+        foreach (Rigidbody rb in dwRigidbody)
+            rb.isKinematic = true;
 
         DarkFeu = GameObject.Find("DarkFeu").GetComponent<ButtonBehaviour>();
 
@@ -117,6 +138,7 @@ public class GameManager : MonoBehaviour
 
             ToggleColliders(ref lwColliders, ref dwColliders);
             ToggleObstacles(ref lwObstacles, ref dwObstacles);
+            ToggleRigidBodies(ref lwRigidbody, ref dwRigidbody);
 
             playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID;
             feumanAgent.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID;
@@ -128,6 +150,7 @@ public class GameManager : MonoBehaviour
 
             ToggleColliders(ref dwColliders, ref lwColliders);
             ToggleObstacles(ref dwObstacles, ref lwObstacles);
+            ToggleRigidBodies(ref dwRigidbody, ref lwRigidbody);
 
             playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
             feumanAgent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
