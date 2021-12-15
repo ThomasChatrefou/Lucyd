@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
 
     public Collider LightChildOfDark;
+    public bool WorldSwap;
 
     public bool darkWorld = false;
     public float cooldown;
@@ -104,7 +105,7 @@ public class GameManager : MonoBehaviour
             obs.enabled = false;
 
         DarkFeu = GameObject.Find("DarkFeu").GetComponent<ButtonBehaviour>();
-        LightFeu = GameObject.Find("LightFeu").GetComponent<ButtonBehaviour>();
+        //LightFeu = GameObject.Find("LightFeu").GetComponent<ButtonBehaviour>();
 
         LightChildOfDark.transform.SetParent(MagicCrate.transform);
     }
@@ -122,8 +123,8 @@ public class GameManager : MonoBehaviour
             playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID;
             feumanAgent.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID;
 
-            DarkFeu.enabled = false;
-            LightFeu.enabled = true;
+            DarkFeu.gameObject.GetComponent<CapsuleCollider>().radius = 0f;
+            //LightFeu.gameObject.GetComponent<CapsuleCollider>().radius = 2f;
         }
         else
         {
@@ -135,11 +136,12 @@ public class GameManager : MonoBehaviour
             playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
             feumanAgent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
 
-            DarkFeu.enabled = true;
-            LightFeu.enabled = false;
+            DarkFeu.gameObject.GetComponent<CapsuleCollider>().radius = 2f;
+            //LightFeu.gameObject.GetComponent<CapsuleCollider>().radius = 0f;
         }
 
         darkWorld = !darkWorld;
+        WorldSwap = darkWorld;
         timer = cooldown;
     }
 
@@ -149,17 +151,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetAxis("Jump") > 0 && timer < 0)
         {
             ScreenFade();
-            LightFeu.on = !LightFeu.on;
         }
         timer -= Time.deltaTime;
 
-        if (darkWorld && LightFeu.on == DarkFeu.on)
-        {
+        if (WorldSwap != darkWorld)
             ScreenFade();
-        }
-        else if (!darkWorld && LightFeu.on != DarkFeu.on)
-        {
-            ScreenFade();
-        }
     }
 }

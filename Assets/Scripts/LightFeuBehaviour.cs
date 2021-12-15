@@ -24,4 +24,6 @@ public class LightFeuBehaviour : MonoBehaviour
             transform.position = GoodSpot;
         }
     }
+
+
 }
