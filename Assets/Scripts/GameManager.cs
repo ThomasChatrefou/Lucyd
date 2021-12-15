@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject renderScreen;
     private NavMeshAgent playerAgent;
+    private NavMeshAgent feumanAgent;
 
     private List<Collider> lwColliders = new List<Collider>();
     private List<Collider> dwColliders = new List<Collider>();
@@ -26,8 +27,10 @@ public class GameManager : MonoBehaviour
     private List<NavMeshObstacle> lwObstacles = new List<NavMeshObstacle>();
     private List<NavMeshObstacle> dwObstacles = new List<NavMeshObstacle>();
 
+    private ButtonBehaviour DarkFeu;
+    private ButtonBehaviour LightFeu;
 
-    private void FillWorldLists(GameObject world, 
+    private void FillWorldLists(GameObject world,
         ref List<Collider> colliders, ref List<NavMeshObstacle> obstacles)
     {
         Transform child;
@@ -38,7 +41,7 @@ public class GameManager : MonoBehaviour
         {
             child = world.transform.GetChild(i);
 
-            if (child.CompareTag("Door")){
+            if (child.CompareTag("Door")) {
                 colliders.Add(child.transform.GetChild(0).GetComponent<Collider>());
                 colliders.Add(child.transform.GetChild(1).GetComponent<Collider>());
 
@@ -56,14 +59,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     private void ToggleColliders(ref List<Collider> enabling, ref List<Collider> disabling)
     {
-        foreach (Collider col in enabling)
-            col.enabled = true;
-
         foreach (Collider col in disabling)
             col.enabled = false;
+        //yield return new WaitForEndOfFrame();
+        foreach (Collider col in enabling)
+            col.enabled = true;
     }
 
 
@@ -87,6 +89,7 @@ public class GameManager : MonoBehaviour
         timer = 0;
         renderScreen = GameObject.Find("Canvas");
         playerAgent = GameObject.FindWithTag("Player").GetComponent<NavMeshAgent>();
+        feumanAgent = GameObject.FindWithTag("Follower").GetComponent<NavMeshAgent>();
 
         FillWorldLists(lightWorldEnvironment, ref lwColliders, ref lwObstacles);
         FillWorldLists(darkWorldEnvironment, ref dwColliders, ref dwObstacles);
@@ -96,6 +99,9 @@ public class GameManager : MonoBehaviour
 
         foreach(NavMeshObstacle obs in dwObstacles)
             obs.enabled = false;
+
+        DarkFeu = GameObject.Find("DarkFeu").GetComponent<ButtonBehaviour>();
+        LightFeu = GameObject.Find("LightFeu").GetComponent<ButtonBehaviour>();
     }
 
 
@@ -109,6 +115,7 @@ public class GameManager : MonoBehaviour
             ToggleObstacles(ref lwObstacles, ref dwObstacles);
 
             playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID;
+            feumanAgent.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID;
         }
         else
         {
@@ -118,9 +125,11 @@ public class GameManager : MonoBehaviour
             ToggleObstacles(ref dwObstacles, ref lwObstacles);
 
             playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
+            feumanAgent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
         }
 
         darkWorld = !darkWorld;
+        timer = cooldown;
     }
 
 
@@ -129,8 +138,16 @@ public class GameManager : MonoBehaviour
         if (Input.GetAxis("Jump") > 0 && timer < 0)
         {
             ScreenFade();
-            timer = cooldown;
         }
         timer -= Time.deltaTime;
+
+        if (darkWorld && LightFeu.on == DarkFeu.on)
+        {
+            ScreenFade();
+        }
+        else if (!darkWorld && LightFeu.on != DarkFeu.on)
+        {
+            ScreenFade();
+        }
     }
 }
