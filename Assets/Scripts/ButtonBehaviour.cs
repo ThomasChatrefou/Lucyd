@@ -63,7 +63,7 @@ public class ButtonBehaviour : MonoBehaviour
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit) || Physics.Raycast(ray, out hit, 1000f, 0))
             {
                 if (hit.collider == clickableCollider)
                 {
@@ -83,6 +83,8 @@ public class ButtonBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameObject.layer == 0)
+            inDarkWorld = GameManager.instance.darkWorld;
         if (inDarkWorld == GameManager.instance.darkWorld)
         {
             CustomMouseDown();

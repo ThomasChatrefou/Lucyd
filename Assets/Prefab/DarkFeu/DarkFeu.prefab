@@ -394,7 +394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7915002319393473219}
   - component: {fileID: 8924292814992486897}
-  - component: {fileID: 8852849629179810256}
+  - component: {fileID: 4257638674723119951}
   m_Layer: 6
   m_Name: DarkFeu
   m_TagString: Untagged
@@ -431,7 +431,7 @@ CapsuleCollider:
   m_Height: 5.11
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8852849629179810256
+--- !u!114 &4257638674723119951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -440,9 +440,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7933755377602570686}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 891dfb5fa56076146ab7dc2cd63ca6d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0223ad2db21edde45991c5956654f11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canBeDisabledByHitAgain: 1
+  hasTimer: 0
+  enabledDuration: 0
+  antiSpamDelay: 1
+  on: 0
 --- !u!1001 &3835515744408536118
 PrefabInstance:
   m_ObjectHideFlags: 0
