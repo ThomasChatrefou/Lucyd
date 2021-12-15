@@ -93,9 +93,6 @@ public class Carriable : MonoBehaviour
                 {
                     //print("c'est hors de porté");
                 }
-
-                    
-                
             }
             else if (shadow)
             {

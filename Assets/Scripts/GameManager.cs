@@ -6,12 +6,15 @@ using UnityEngine.AI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+    public Collider LightChildOfDark;
+    public bool WorldSwap;
 
     public bool darkWorld = false;
     public float cooldown;
 
     public GameObject lightWorldEnvironment;
     public GameObject darkWorldEnvironment;
+    public GameObject MagicCrate;
 
     public Camera darkWorldCamera;
 
@@ -101,7 +104,8 @@ public class GameManager : MonoBehaviour
             obs.enabled = false;
 
         DarkFeu = GameObject.Find("DarkFeu").GetComponent<ButtonBehaviour>();
-        LightFeu = GameObject.Find("LightFeu").GetComponent<ButtonBehaviour>();
+
+        LightChildOfDark.transform.SetParent(MagicCrate.transform);
     }
 
 
@@ -116,6 +120,7 @@ public class GameManager : MonoBehaviour
 
             playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID;
             feumanAgent.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID;
+
         }
         else
         {
@@ -126,9 +131,10 @@ public class GameManager : MonoBehaviour
 
             playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
             feumanAgent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
-        }
 
+        }
         darkWorld = !darkWorld;
+        WorldSwap = darkWorld;
         timer = cooldown;
     }
 
@@ -137,17 +143,13 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetAxis("Jump") > 0 && timer < 0)
         {
-            ScreenFade();
+            DarkFeu.on = !DarkFeu.on;
         }
+        WorldSwap = DarkFeu.on;
         timer -= Time.deltaTime;
 
-        if (darkWorld && LightFeu.on == DarkFeu.on)
-        {
+        if (WorldSwap != darkWorld)
             ScreenFade();
-        }
-        else if (!darkWorld && LightFeu.on != DarkFeu.on)
-        {
-            ScreenFade();
-        }
+        
     }
 }
