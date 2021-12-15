@@ -121,6 +121,9 @@ public class GameManager : MonoBehaviour
 
             playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID;
             feumanAgent.agentTypeID = NavMesh.GetSettingsByIndex(0).agentTypeID;
+
+            DarkFeu.enabled = false;
+            LightFeu.enabled = true;
         }
         else
         {
@@ -131,6 +134,9 @@ public class GameManager : MonoBehaviour
 
             playerAgent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
             feumanAgent.agentTypeID = NavMesh.GetSettingsByIndex(1).agentTypeID;
+
+            DarkFeu.enabled = true;
+            LightFeu.enabled = false;
         }
 
         darkWorld = !darkWorld;

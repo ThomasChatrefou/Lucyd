@@ -5,19 +5,23 @@ using UnityEngine;
 public class DarkFeuBehaviour : MonoBehaviour
 {
     private ButtonBehaviour Button;
-    bool darkWorld;
-
+    private Vector3 HidingSpot;
+    private Vector3 GoodSpot;
     private void Start()
     {
-        Button = GetComponent<ButtonBehaviour>();
-        darkWorld = GameManager.instance.darkWorld;
+        HidingSpot = transform.position + Vector3.down * 5f;
+        GoodSpot = transform.position;
     }
 
     void Update()
     {
-        if (Button.on && GameManager.instance.darkWorld == false)
+        if (GameManager.instance.darkWorld == false)
         {
-            GameManager.instance.ScreenFade();
+            transform.position = HidingSpot;
+        }
+        else if (GameManager.instance.darkWorld == true)
+        {
+            transform.position = GoodSpot;
         }
     }
 }
