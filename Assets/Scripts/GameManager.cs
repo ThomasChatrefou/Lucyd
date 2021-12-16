@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     private ButtonBehaviour DarkFeu;
 
     public int NbrMana = 0;
-    public TextMeshProUGUI NbrManaText;
+
 
     public int NbrTorchLighted = 0;
 
@@ -183,15 +183,10 @@ public class GameManager : MonoBehaviour
             ScreenFade();
         
     }
-    public void CountMana()
-    {
-        NbrMana += 1;
-        NbrManaText.text = NbrMana.ToString();
-            }
     public void CountTorch()
     {
         NbrTorchLighted += 1;
-        if(NbrTorchLighted == 6 )
+        if(NbrTorchLighted == 3)
         {
             Instantiate(Portal, new Vector3(0,1,7),new Quaternion(0,90,90,90));
             print("a portal has open");

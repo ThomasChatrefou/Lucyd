@@ -25,6 +25,7 @@ public class TorchBehaviour : MonoBehaviour
         {
             if (Button.on)
             {
+                GameManager.instance.CountTorch();
                 transform.GetChild(0).gameObject.SetActive(true);
                 lighted = true;
             }

@@ -15,12 +15,7 @@ public class PieceToFind : MonoBehaviour
        
         if (other.gameObject.tag == "Player")
         {
-            GameManager.CountMana();
             Destroy(gameObject);
-            if (GameManager.NbrMana == 3)
-            {
-                print("Les torches peuvent etre allumées ");
-            }
         }
     }
 
