@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour
 {
@@ -10,8 +11,8 @@ public class Portal : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            Instantiate(TerreMan, new Vector3(0.5f,0.8f, 15), new Quaternion(0, 0, 0, 0));
-               
+
+            SceneManager.LoadScene(2);
             print("you finished it wp  bruhhh");
         }
     }
