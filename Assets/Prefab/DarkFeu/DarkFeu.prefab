@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3835515744677999050}
   - component: {fileID: 3835515744677999051}
   - component: {fileID: 3835515744677999048}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 3835515745516776878}
   - component: {fileID: 3835515745516776879}
   - component: {fileID: 3835515745516776876}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 3835515745533775749}
   - component: {fileID: 3835515745533775754}
   - component: {fileID: 3835515745533775755}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 3835515746185078918}
   - component: {fileID: 3835515746185078919}
   - component: {fileID: 3835515746185078916}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,8 +394,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7915002319393473219}
   - component: {fileID: 8924292814992486897}
-  - component: {fileID: 3143173426582162127}
-  m_Layer: 0
+  - component: {fileID: 4257638674723119951}
+  m_Layer: 6
   m_Name: DarkFeu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ CapsuleCollider:
   m_Height: 5.11
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3143173426582162127
+--- !u!114 &4257638674723119951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -446,7 +446,7 @@ MonoBehaviour:
   canBeDisabledByHitAgain: 1
   hasTimer: 0
   enabledDuration: 0
-  antiSpamDelay: 2
+  antiSpamDelay: 1
   on: 0
 --- !u!1001 &3835515744408536118
 PrefabInstance:
@@ -455,9 +455,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7915002319393473219}
     m_Modifications:
+    - target: {fileID: 1261140543717858, guid: 08fd1b80cc24cc8439f45fda3c558255, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340498524264356, guid: 08fd1b80cc24cc8439f45fda3c558255, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429175742853808, guid: 08fd1b80cc24cc8439f45fda3c558255, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1692517446758730, guid: 08fd1b80cc24cc8439f45fda3c558255, type: 3}
       propertyPath: m_Name
       value: Magic fire 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692517446758730, guid: 08fd1b80cc24cc8439f45fda3c558255, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4166505909902172, guid: 08fd1b80cc24cc8439f45fda3c558255, type: 3}
       propertyPath: m_RootOrder

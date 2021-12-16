@@ -142,5 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445bc7a2ba56ed14e92dd53c44dbabb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  antiSpamDelay: 0.1
   shadowPrefab: {fileID: 4526524997302427832, guid: cf59232d119faeb429f5427f83b4cde2, type: 3}
   cam: {fileID: 0}
