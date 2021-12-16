@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,6 +38,12 @@ public class GameManager : MonoBehaviour
 
     private ButtonBehaviour DarkFeu;
 
+    public int NbrMana = 0;
+    public TextMeshProUGUI NbrManaText;
+
+    public int NbrTorchLighted = 0;
+
+    public GameObject Portal;
     private void FillWorldLists(GameObject world,
         ref List<Collider> colliders, ref List<NavMeshObstacle> obstacles, ref List<Rigidbody> rigidbody)
     {
@@ -174,5 +182,19 @@ public class GameManager : MonoBehaviour
         if (WorldSwap != darkWorld)
             ScreenFade();
         
+    }
+    public void CountMana()
+    {
+        NbrMana += 1;
+        NbrManaText.text = NbrMana.ToString();
+            }
+    public void CountTorch()
+    {
+        NbrTorchLighted += 1;
+        if(NbrTorchLighted == 6 )
+        {
+            Instantiate(Portal, new Vector3(0,1,7),new Quaternion(0,90,90,90));
+            print("a portal has open");
+        }
     }
 }
