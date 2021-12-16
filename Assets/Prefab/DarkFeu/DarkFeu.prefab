@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 7915002319393473219}
   - component: {fileID: 8924292814992486897}
   - component: {fileID: 4257638674723119951}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: DarkFeu
   m_TagString: Untagged
   m_Icon: {fileID: 0}

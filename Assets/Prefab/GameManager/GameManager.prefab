@@ -43,9 +43,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d61f12a8dc8d7247a5a8cc91c94c24a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CD: 2
-  OnelyLightWDObject:
-  - {fileID: 0}
-  OnelyDarkWDObject:
-  - {fileID: 0}
-  DarkWorld: 0
+  LightChildOfDark: {fileID: 0}
+  WorldSwap: 0
+  darkWorld: 0
+  cooldown: 0
+  lightWorldEnvironment: {fileID: 0}
+  darkWorldEnvironment: {fileID: 0}
+  MagicCrate: {fileID: 0}
+  darkWorldCamera: {fileID: 0}
+  NbrMana: 0
+  NbrManaText: {fileID: 0}
+  NbrTorchLighted: 0
+  Portal: {fileID: 1177363793828382905, guid: 60ae754a4332a97489bf214c6dc2a4a5, type: 3}
