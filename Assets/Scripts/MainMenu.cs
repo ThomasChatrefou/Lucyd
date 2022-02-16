@@ -5,11 +5,45 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public SceneFader sceneFader;
+    public string levelToLoad = "MainLevel";
+
+    public MenuFader menu;
+    public float timeBeforeMenuFadeOut = 60f;
+    
+    private float countDown;
+
+    public void Awake()
+    {
+        countDown = timeBeforeMenuFadeOut;
+    }
+
+    public void Update()
+    {
+        if (menu.gameObject.activeSelf && countDown < 0)
+        {
+            menu.Hide();
+        }
+
+        if (Input.anyKey)
+        {
+            countDown = timeBeforeMenuFadeOut;
+            menu.ShowUp();
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Quit();
+        }
+
+        countDown -= Time.deltaTime;
+    }
+
     public void Play()
     {
-        SceneManager.LoadScene(1);
-        //Time.timeScale = 1f;
+        sceneFader.FadeTo(levelToLoad);
     }
+
     public void Quit()
     {
         Application.Quit();
