@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 2605763874775724383}
   - component: {fileID: 1797500403614328789}
   - component: {fileID: 5489588208391306800}
+  - component: {fileID: -8490914544089025477}
+  - component: {fileID: -6824251353746497392}
   m_Layer: 6
   m_Name: Torch
   m_TagString: Untagged
@@ -98,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lighted: 0
+  canBeLighted: 0
 --- !u!114 &1797500403614328789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +131,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6055644, y: 4.9089136, z: 0.9654004}
   m_Center: {x: 0, y: -1.4538016, z: 0}
+--- !u!114 &-8490914544089025477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446269232467340160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 0.6591742, b: 1, a: 1}
+  outlineWidth: 4.27
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &-6824251353746497392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446269232467340160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40768482a2fba504ebd9eb975ea7a35f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &748064044427446853
 PrefabInstance:
   m_ObjectHideFlags: 0
