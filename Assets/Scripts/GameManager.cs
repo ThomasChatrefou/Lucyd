@@ -8,19 +8,18 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    public Collider LightChildOfDark;
-    public bool WorldSwap;
+    public Collider lightChildOfDark;
+    public bool worldSwap;
 
     public bool darkWorld = false;
-    public float cooldown;
-
-    public GameObject lightWorldEnvironment;
-    public GameObject darkWorldEnvironment;
-    public GameObject MagicCrate;
+    public float worldFadeCooldown;
+    private float worldFadeTimer;
 
     public Camera darkWorldCamera;
 
-    private float timer;
+    public GameObject lightWorldEnvironment;
+    public GameObject darkWorldEnvironment;
+    public GameObject magicCrate;
 
     private GameObject renderScreen;
     private NavMeshAgent playerAgent;
@@ -35,15 +34,19 @@ public class GameManager : MonoBehaviour
     private List<Rigidbody> lwRigidbody = new List<Rigidbody>();
     private List<Rigidbody> dwRigidbody = new List<Rigidbody>();
 
+    private ButtonBehaviour darkFeu;
 
-    private ButtonBehaviour DarkFeu;
+    public int nbrMana = 0;
 
-    public int NbrMana = 0;
+    public int nbrTorchLighted = 0;
 
+    public GameObject portal;
 
-    public int NbrTorchLighted = 0;
+    [SerializeField] private float resetLevelCooldown = 60f;
+    private float resetLevelTimer;
+    public SceneFader sceneFader;
+    [SerializeField] private string menuName;
 
-    public GameObject Portal;
     private void FillWorldLists(GameObject world,
         ref List<Collider> colliders, ref List<NavMeshObstacle> obstacles, ref List<Rigidbody> rigidbody)
     {
@@ -115,7 +118,8 @@ public class GameManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        timer = 0;
+        resetLevelTimer = resetLevelCooldown;
+        worldFadeTimer = 0;
         renderScreen = GameObject.Find("Canvas");
         playerAgent = GameObject.FindWithTag("Player").GetComponent<NavMeshAgent>();
         feumanAgent = GameObject.FindWithTag("Follower").GetComponent<NavMeshAgent>();
@@ -132,9 +136,9 @@ public class GameManager : MonoBehaviour
         foreach (Rigidbody rb in dwRigidbody)
             rb.isKinematic = true;
 
-        DarkFeu = GameObject.Find("DarkFeu").GetComponent<ButtonBehaviour>();
+        darkFeu = GameObject.Find("DarkFeu").GetComponent<ButtonBehaviour>();
 
-        LightChildOfDark.transform.SetParent(MagicCrate.transform);
+        lightChildOfDark.transform.SetParent(magicCrate.transform);
     }
 
 
@@ -165,30 +169,41 @@ public class GameManager : MonoBehaviour
 
         }
         darkWorld = !darkWorld;
-        WorldSwap = darkWorld;
-        timer = cooldown;
+        worldSwap = darkWorld;
+        worldFadeTimer = worldFadeCooldown;
     }
 
 
     private void Update()
     {
-        if (Input.GetAxis("Jump") > 0 && timer < 0)
+        if (Input.GetAxis("Jump") > 0 && worldFadeTimer < 0)
         {
-            DarkFeu.on = !DarkFeu.on;
+            darkFeu.on = !darkFeu.on;
         }
-        WorldSwap = DarkFeu.on;
-        timer -= Time.deltaTime;
+        worldSwap = darkFeu.on;
+        worldFadeTimer -= Time.deltaTime;
 
-        if (WorldSwap != darkWorld)
+        if (worldSwap != darkWorld)
             ScreenFade();
-        
+
+        if (Input.anyKey)
+        {
+            resetLevelTimer = resetLevelCooldown;
+        }
+
+        if (resetLevelTimer < 0)
+        {
+            sceneFader.FadeTo(menuName);
+        }
+
+        resetLevelTimer -= Time.deltaTime;
     }
     public void CountTorch()
     {
-        NbrTorchLighted += 1;
-        if(NbrTorchLighted == 3)
+        nbrTorchLighted += 1;
+        if(nbrTorchLighted == 3)
         {
-            Instantiate(Portal, new Vector3(0,1,7),new Quaternion(0,90,90,90));
+            Instantiate(portal, new Vector3(0,1,7),new Quaternion(0,90,90,90));
             print("a portal has open");
         }
     }
