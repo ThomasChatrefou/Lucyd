@@ -1013,7 +1013,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4530363099333352133, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
 --- !u!1001 &62013011
 PrefabInstance:
@@ -5253,6 +5254,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch
       objectReference: {fileID: 0}
+    - target: {fileID: 5446269232467340160, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
+      propertyPath: m_TagString
+      value: TorchEnigm
+      objectReference: {fileID: 0}
     - target: {fileID: 6953134556991860819, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
       propertyPath: m_RootOrder
       value: 63
@@ -5585,7 +5590,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 124292900}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0.001}
 --- !u!108 &298113118
 Light:
@@ -14221,7 +14226,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4530363099333352133, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
 --- !u!1001 &743418563
 PrefabInstance:
@@ -20295,7 +20301,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4530363099333352133, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
 --- !u!4 &1030275325 stripped
 Transform:
@@ -25546,7 +25553,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4530363099333352133, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
 --- !u!1001 &1347067593
 PrefabInstance:
@@ -25884,6 +25892,10 @@ PrefabInstance:
     - target: {fileID: 2847414640167640755, guid: a13e402002daa00449d4b095f3698364, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6887821200673271770, guid: a13e402002daa00449d4b095f3698364, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a13e402002daa00449d4b095f3698364, type: 3}
@@ -29016,7 +29028,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4530363099333352133, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
 --- !u!4 &1529537971 stripped
 Transform:
@@ -34231,6 +34244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Torch (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5446269232467340160, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
+      propertyPath: m_TagString
+      value: TorchEnigm
+      objectReference: {fileID: 0}
     - target: {fileID: 6953134556991860819, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
       propertyPath: m_RootOrder
       value: 62
@@ -35235,7 +35252,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4530363099333352133, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
 --- !u!4 &1863684800 stripped
 Transform:
@@ -35274,6 +35292,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1361289538822860299, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2605763874775724383, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
       propertyPath: canBeLighted
       value: 1
@@ -35285,6 +35307,10 @@ PrefabInstance:
     - target: {fileID: 5446269232467340160, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446269232467340160, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
+      propertyPath: m_TagString
+      value: TorchEnigm
       objectReference: {fileID: 0}
     - target: {fileID: 6953134556991860819, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
       propertyPath: m_RootOrder
@@ -41290,7 +41316,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1254190762}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0.001}
 --- !u!108 &1930930163
 Light:
@@ -45236,7 +45262,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1517956010}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!108 &2117072743
 Light:
