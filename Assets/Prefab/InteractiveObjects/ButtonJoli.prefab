@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 7822438236781863630}
   - component: {fileID: 6341205298585232180}
   - component: {fileID: 3764729068300908452}
-  - component: {fileID: 6294170119130477058}
   m_Layer: 0
   m_Name: ButtonJoli
   m_TagString: Button
@@ -167,18 +166,6 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!114 &6294170119130477058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6341205298585232178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40768482a2fba504ebd9eb975ea7a35f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1145160931756846778
 PrefabInstance:
   m_ObjectHideFlags: 0

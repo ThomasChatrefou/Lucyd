@@ -7,6 +7,8 @@ public class OutlinerManager : MonoBehaviour
 
     private LayerMask mask;
     private Camera cam;
+    private Outline[] OutlineArray;
+    private Outline PrevOutline = null;
 
 
 
@@ -14,8 +16,11 @@ public class OutlinerManager : MonoBehaviour
     void Start()
     {
         cam = GameObject.Find("DarkWorldCam").GetComponent<Camera>();
-        GetComponent<Outline>().enabled = false;
-
+        OutlineArray = Object.FindObjectsOfType<Outline>();
+        foreach (Outline outline in OutlineArray)
+        {
+            outline.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -36,20 +41,44 @@ public class OutlinerManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 1000f, mask))
         {
             if (hit.collider.GetComponent<Outline>())
-                hit.collider.gameObject.GetComponent<Outline>().enabled = true;
-            else if (hit.collider.gameObject != this)
-                GetComponent<Outline>().enabled = false;
+            {
+                hit.collider.GetComponent<Outline>().enabled = true;
+                if (!PrevOutline)
+                    PrevOutline = hit.collider.gameObject.GetComponent<Outline>();
+                else if(PrevOutline.gameObject != hit.collider.gameObject)
+                {
+                    PrevOutline.enabled = false;
+                    PrevOutline = hit.collider.gameObject.GetComponent<Outline>();
+                }
+            }
+            else if (hit.collider.GetComponentInChildren<Outline>())
+            {
+                hit.collider.GetComponentInChildren<Outline>().enabled = true;
+                if (!PrevOutline)
+                    PrevOutline = hit.collider.gameObject.GetComponentInChildren<Outline>();
+                else if (PrevOutline.gameObject != hit.collider.gameObject)
+                {
+                    PrevOutline.enabled = false;
+                    PrevOutline = hit.collider.gameObject.GetComponentInChildren<Outline>();
+                    PrevOutline.enabled = true;
+                }
+            }
+            else if(PrevOutline)
+                PrevOutline.enabled = false;
         }
-        
+        else if(PrevOutline)
+            PrevOutline.enabled = false;
+
         mask = LayerMask.GetMask("Default");
         if (Physics.Raycast(ray, out hit, 1000f, mask))
         {
             if (hit.collider.gameObject.name == "DarkFeu")
-                    hit.collider.gameObject.GetComponentInChildren<Outline>().enabled = true;
-               
-            //else if (hit.collider.gameObject != this)
-                //GetComponent<Outline>().enabled = false;
+            {
+                if (PrevOutline)
+                    PrevOutline.enabled = false;
+                PrevOutline = hit.collider.gameObject.GetComponentInChildren<Outline>();
+                PrevOutline.enabled = true;
+            }
         }
-        
     }
 }
