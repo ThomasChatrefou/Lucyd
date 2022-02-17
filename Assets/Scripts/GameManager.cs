@@ -176,6 +176,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown("c"))
+        {
+            StartCoroutine(GetComponent<CameraManager>().CamSlide());
+        }
+
         if (Input.GetAxis("Jump") > 0 && worldFadeTimer < 0)
         {
             darkFeu.on = !darkFeu.on;
@@ -201,6 +206,7 @@ public class GameManager : MonoBehaviour
     public void CountTorch()
     {
         nbrTorchLighted += 1;
+        StartCoroutine(GetComponent<CameraManager>().CamSlide());
         if(nbrTorchLighted == 3)
         {
             Instantiate(portal, new Vector3(0,1,7),new Quaternion(0,90,90,90));
