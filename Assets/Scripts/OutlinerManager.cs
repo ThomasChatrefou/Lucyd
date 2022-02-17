@@ -6,12 +6,16 @@ public class OutlinerManager : MonoBehaviour
 {
 
     private LayerMask mask;
-    public Camera cam;
+    private Camera cam;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         cam = GameObject.Find("DarkWorldCam").GetComponent<Camera>();
-        GetComponent<Outline>().enabled = false;
+        //GetComponent<Outline>().enabled = false;
+
     }
 
     // Update is called once per frame
@@ -35,13 +39,16 @@ public class OutlinerManager : MonoBehaviour
             else if (hit.collider.gameObject != this)
                 GetComponent<Outline>().enabled = false;
         }
+        
         mask = LayerMask.GetMask("Default");
         if (Physics.Raycast(ray, out hit, 1000f, mask))
         {
             if (hit.collider.gameObject.name == "DarkFeu")
-                hit.collider.gameObject.GetComponentInChildren<Outline>().enabled = true;
-            else if (hit.collider.gameObject != this)
-                GetComponent<Outline>().enabled = false;
+                    hit.collider.gameObject.GetComponentInChildren<Outline>().enabled = true;
+               
+            //else if (hit.collider.gameObject != this)
+                //GetComponent<Outline>().enabled = false;
         }
+        
     }
 }
