@@ -128,7 +128,7 @@ public class DarkFeuBehaviour : MonoBehaviour
             if (button.position.y < buttonOriginalY)
                 button.position += new Vector3(0, Time.deltaTime * buttonReturnSpeed, 0);
         }
-        GameManager.instance.WorldSwap = on;
+        GameManager.instance.worldSwap = on;
     }
 
 
