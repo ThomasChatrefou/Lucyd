@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
 
         resetLevelTimer = resetLevelCooldown;
         worldFadeTimer = 0;
-        renderScreen = GameObject.Find("Canvas");
+        renderScreen = GameObject.Find("RenderScreen");
         playerAgent = GameObject.FindWithTag("Player").GetComponent<NavMeshAgent>();
         feumanAgent = GameObject.FindWithTag("Follower").GetComponent<NavMeshAgent>();
 
