@@ -33,8 +33,8 @@ Transform:
   - {fileID: 3835515745516776877}
   - {fileID: 3835515745533775752}
   - {fileID: 3835515746185078917}
-  m_Father: {fileID: 3833883065194995562}
-  m_RootOrder: 3
+  m_Father: {fileID: 7915002319393473219}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2902806142946887619
 MonoBehaviour:
@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40768482a2fba504ebd9eb975ea7a35f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 0}
 --- !u!114 &8920490852466935981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,6 +480,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 7324406796839987482}
   - {fileID: 3833883065194995562}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -543,7 +545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4166505909902172, guid: 08fd1b80cc24cc8439f45fda3c558255, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4166505909902172, guid: 08fd1b80cc24cc8439f45fda3c558255, type: 3}
       propertyPath: m_LocalPosition.x

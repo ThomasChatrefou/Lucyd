@@ -35,5 +35,13 @@ public class OutlinerManager : MonoBehaviour
             else if (hit.collider.gameObject != this)
                 GetComponent<Outline>().enabled = false;
         }
+        mask = LayerMask.GetMask("Default");
+        if (Physics.Raycast(ray, out hit, 1000f, mask))
+        {
+            if (hit.collider.gameObject.name == "DarkFeu")
+                hit.collider.gameObject.GetComponentInChildren<Outline>().enabled = true;
+            else if (hit.collider.gameObject != this)
+                GetComponent<Outline>().enabled = false;
+        }
     }
 }
