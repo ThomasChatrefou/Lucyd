@@ -1,26 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+
 public class PauseMenu : MonoBehaviour
 {
-    public static bool IsPauded = false;
-    public GameObject PauseMenuUI;
+    public GameObject pauseUI;
 
+    [SerializeField] private string MainMenuName = "MainMenu";
 
-    private void Start()
+    private SceneFader sceneFader;
+
+    private void Awake()
     {
-      IsPauded = false;
-      Resume();
-}
+        sceneFader = GameObject.Find("SceneFader").GetComponent<SceneFader>();
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (IsPauded)
+            if (pauseUI.activeSelf)
             {
                 Resume();
-                
             }
             else
             {
@@ -28,27 +28,38 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
-    public void Resume()
-    {
-        PauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
-        IsPauded = false ;
-    }
     public void Pause()
     {
-        PauseMenuUI.SetActive(true);
+        pauseUI.SetActive(true);
         Time.timeScale = 0f;
-        IsPauded = true;
+    }
+    public void Resume()
+    {
+        pauseUI.SetActive(false);
+        Time.timeScale = 1f;
+    }
+    public void ResetLevel()
+    {
+        Time.timeScale = 1f;
+        if (sceneFader != null)
+        {
+            sceneFader.FadeTo(SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
     public void Menu()
     {
-        SceneManager.LoadScene(0);
+        Time.timeScale = 1f;
+        if (sceneFader != null)
+        {
+            sceneFader.FadeTo(MainMenuName);
+        }
+        else
+        {
+            SceneManager.LoadScene(MainMenuName);
+        }
     }
-    public void Quit()
-    {
-        Application.Quit();
-    }
-
-
-
 }
