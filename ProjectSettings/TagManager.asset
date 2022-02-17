@@ -12,6 +12,7 @@ TagManager:
   - Door
   - Ground
   - Follower
+  - TorchEnigm
   layers:
   - Default
   - TransparentFX
