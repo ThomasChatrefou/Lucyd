@@ -7663,7 +7663,7 @@ MonoBehaviour:
   sceneFader: {fileID: 2024505760}
   levelToLoad: MainScene
   menu: {fileID: 301414408}
-  timeBeforeMenuFadeOut: 5
+  timeBeforeMenuFadeOut: 20
 --- !u!114 &431076386
 MonoBehaviour:
   m_ObjectHideFlags: 0
