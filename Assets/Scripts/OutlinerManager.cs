@@ -14,14 +14,15 @@ public class OutlinerManager : MonoBehaviour
     void Start()
     {
         cam = GameObject.Find("DarkWorldCam").GetComponent<Camera>();
-        //GetComponent<Outline>().enabled = false;
+        GetComponent<Outline>().enabled = false;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        CustomMouseOver();
+        if(GameManager.instance)
+            CustomMouseOver();
     }
 
     void CustomMouseOver()
