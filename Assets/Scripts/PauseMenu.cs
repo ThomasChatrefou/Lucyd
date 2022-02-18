@@ -27,6 +27,11 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ResetLevel();
+        }
     }
     public void Pause()
     {
