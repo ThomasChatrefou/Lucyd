@@ -375,7 +375,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "You discover a little rock spirit, \nit will follow you for the rest of
     the adventure !\n\nThanks for playing the Prototype\nof Lucyd, we hope \nyou
-    enjoyed it as we did.\nPlease feel free to fill out the form\nhttps://forms.gle/uuSo9SmLWfNjrg2j8\n"
+    enjoyed it as we did.\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -917,7 +917,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.5910034, y: -0.57710266}
+  m_AnchoredPosition: {x: -0.5910034, y: -0.5770874}
   m_SizeDelta: {x: 39.0111, y: 14.6195}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1851116734
