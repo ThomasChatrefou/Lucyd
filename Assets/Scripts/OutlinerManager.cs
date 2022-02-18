@@ -53,7 +53,6 @@ public class OutlinerManager : MonoBehaviour
             }
             else if (hit.collider.GetComponentInChildren<Outline>())
             {
-                print("Torch");
                 hit.collider.GetComponentInChildren<Outline>().enabled = true;
                 if (!PrevOutline)
                     PrevOutline = hit.collider.gameObject.GetComponentInChildren<Outline>();
