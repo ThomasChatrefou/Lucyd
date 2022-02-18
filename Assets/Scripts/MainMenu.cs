@@ -13,6 +13,15 @@ public class MainMenu : MonoBehaviour
     
     private float countDown;
 
+
+    private void Start()
+    {
+        Outline[] OutlineArray = Object.FindObjectsOfType<Outline>();
+        foreach (Outline outline in OutlineArray)
+        {
+            outline.enabled = false;
+        }
+    }
     public void Awake()
     {
         countDown = timeBeforeMenuFadeOut;
