@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -22,7 +20,7 @@ public class CharacterMovement : MonoBehaviour
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (GameManager.instance.darkWorld)
+            if (WorldTransitionManager.darkWorld)
                 mask = LayerMask.GetMask("DarkWorld");
             else
                 mask = LayerMask.GetMask("LightWorld");

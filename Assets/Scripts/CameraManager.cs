@@ -14,7 +14,13 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         Player = GameObject.Find("Player");
-        CamAnchor = GameObject.Find("CameraAnchor").transform;
+
+        GameObject cameraAnchor = GameObject.Find("CameraAnchor");
+        if (cameraAnchor)
+        {
+            CamAnchor = cameraAnchor.transform;
+        }
+
         Cam = GameObject.Find("Cams");
     }
 

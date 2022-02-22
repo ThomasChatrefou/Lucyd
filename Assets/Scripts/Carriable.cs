@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -26,7 +24,6 @@ public class Carriable : MonoBehaviour
 
     private LayerMask mask;
 
-
     void Start()
     {
         clickableCollider = GetComponent<Collider>();
@@ -45,7 +42,7 @@ public class Carriable : MonoBehaviour
     {
         if (Input.GetMouseButton(0) && canClickAgain < Time.time)
         {
-            if (GameManager.instance.darkWorld)
+            if (WorldTransitionManager.darkWorld)
                 mask = LayerMask.GetMask("DarkWorld");
             else
                 mask = LayerMask.GetMask("LightWorld");

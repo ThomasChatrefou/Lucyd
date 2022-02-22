@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OutlinerManager : MonoBehaviour
@@ -11,11 +9,14 @@ public class OutlinerManager : MonoBehaviour
     private Outline PrevOutline = null;
 
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        cam = GameObject.Find("DarkWorldCam").GetComponent<Camera>();
+        GameObject darkWorldCam = GameObject.Find("DarkWorldCam");
+        if (darkWorldCam)
+        {
+            cam = darkWorldCam.GetComponent<Camera>();
+        }
+
         OutlineArray = Object.FindObjectsOfType<Outline>();
         foreach (Outline outline in OutlineArray)
         {
@@ -23,7 +24,6 @@ public class OutlinerManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(GameManager.instance)
@@ -32,7 +32,7 @@ public class OutlinerManager : MonoBehaviour
 
     void CustomMouseOver()
     {
-        if (GameManager.instance.darkWorld)
+        if (WorldTransitionManager.darkWorld)
             mask = LayerMask.GetMask("DarkWorld");
         else
             mask = LayerMask.GetMask("LightWorld");

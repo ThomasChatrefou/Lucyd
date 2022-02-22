@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,10 +29,9 @@ public class ButtonBehaviour : MonoBehaviour
 
     private Camera cam;
 
-    // Start is called before the first frame update
     void Start()
     {
-        cam = GameManager.instance.darkWorldCamera;
+        cam = GameObject.Find("DarkWorldCam").GetComponent<Camera>();
 
         player = GameObject.FindWithTag("Player");
 
@@ -79,13 +76,11 @@ public class ButtonBehaviour : MonoBehaviour
         }
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         if (gameObject.layer == 0)
-            inDarkWorld = GameManager.instance.darkWorld;
-        if (inDarkWorld == GameManager.instance.darkWorld)
+            inDarkWorld = WorldTransitionManager.darkWorld;
+        if (inDarkWorld == WorldTransitionManager.darkWorld)
         {
             CustomMouseDown();
             if (pushable && isClicked && canHitAgain < Time.time)
