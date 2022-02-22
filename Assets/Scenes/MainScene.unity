@@ -21252,6 +21252,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 951a7d148015bd942b77b042f4e7c96a, type: 3}
   m_PrefabInstance: {fileID: 707071636}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1252065171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1252065172}
+  m_Layer: 0
+  m_Name: CameraAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1252065172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252065171}
+  m_LocalRotation: {x: -0.35355383, y: -0.3535507, z: 0.1464455, w: -0.85355455}
+  m_LocalPosition: {x: -7.4614143, y: 11.55619, z: 8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 45, y: 225, z: 0}
 --- !u!4 &1254190762 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6953134556991860819, guid: 060ba8f43ead0e34d93f2b22728a2211, type: 3}
@@ -23424,7 +23454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4817284875370240168, guid: a13e402002daa00449d4b095f3698364, type: 3}
       propertyPath: CamSpeed
-      value: 0.2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6887821200673271770, guid: a13e402002daa00449d4b095f3698364, type: 3}
       propertyPath: m_Enabled

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public SceneFader sceneFader;
     [SerializeField] private string menuName;
 
-    LevelEnding lvlEnd;
+    LevelEnding _lvlEnd;
 
 
     private void Awake()
@@ -28,7 +28,9 @@ public class GameManager : MonoBehaviour
         resetLevelTimer = resetLevelCooldown;
 
         //level ending
-        lvlEnd = GameObject.Find("LevelEndingCanvas").GetComponent<LevelEnding>();
+        GameObject lvlEnd = GameObject.Find("LevelEndingCanvas");
+        if (lvlEnd)
+            _lvlEnd = lvlEnd.GetComponent<LevelEnding>();
     }
 
     private void Update()
@@ -68,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void EndLevel()
     {
-        if (lvlEnd)
-            lvlEnd.Display();
+        if (_lvlEnd)
+            _lvlEnd.Display();
     }
 }
