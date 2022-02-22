@@ -2,7 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class WorldTransitionManager : MonoBehaviour
+public interface IWorldManager
+{
+    public LayerMask GetCurrentLayerMask();
+}
+
+public class WorldTransitionManager : MonoBehaviour, IWorldManager
 {
     [SerializeField] private GameObject lightWorldEnvironment;
     [SerializeField] private GameObject darkWorldEnvironment;
@@ -28,6 +33,17 @@ public class WorldTransitionManager : MonoBehaviour
     private NavMeshAgent playerAgent;
     private NavMeshAgent feumanAgent;
 
+    public LayerMask GetCurrentLayerMask()
+    {
+        if (darkWorld)
+        {
+            return LayerMask.GetMask("DarkWorld");
+        }
+        else
+        {
+            return LayerMask.GetMask("LightWorld");
+        }
+    }
 
     private void Awake()
     {
