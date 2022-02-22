@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseUI;
@@ -14,6 +13,7 @@ public class PauseMenu : MonoBehaviour
     {
         sceneFader = GameObject.Find("SceneFader").GetComponent<SceneFader>();
     }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -33,16 +33,19 @@ public class PauseMenu : MonoBehaviour
             ResetLevel();
         }
     }
+
     public void Pause()
     {
         pauseUI.SetActive(true);
         Time.timeScale = 0f;
     }
+
     public void Resume()
     {
         pauseUI.SetActive(false);
         Time.timeScale = 1f;
     }
+
     public void ResetLevel()
     {
         Time.timeScale = 1f;
@@ -55,6 +58,7 @@ public class PauseMenu : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
+
     public void Menu()
     {
         Time.timeScale = 1f;

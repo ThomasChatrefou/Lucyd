@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public SceneFader sceneFader;
     [SerializeField] private string menuName;
 
+    LevelEnding lvlEnd;
+
 
     private void Awake()
     {
@@ -24,28 +26,29 @@ public class GameManager : MonoBehaviour
 
         //reset level
         resetLevelTimer = resetLevelCooldown;
+
+        //level ending
+        lvlEnd = GameObject.Find("LevelEndingCanvas").GetComponent<LevelEnding>();
     }
 
     private void Update()
     {
         // camera slider
         if (Input.GetKeyDown("c"))
-        {
             StartCoroutine(GetComponent<CameraManager>().CamSlide());
-        }
 
         // level reset
         if (Input.anyKey)
-        {
             resetLevelTimer = resetLevelCooldown;
-        }
 
         if (resetLevelTimer < 0)
-        {
             sceneFader.FadeTo(menuName);
-        }
 
         resetLevelTimer -= Time.deltaTime;
+
+        // level ending test
+        if (Input.GetKeyDown(KeyCode.E))
+            SpawnEndingPortal();
     }
 
     //Light torch
@@ -53,10 +56,19 @@ public class GameManager : MonoBehaviour
     {
         nbrTorchLighted += 1;
         StartCoroutine(GetComponent<CameraManager>().CamSlide());
-        if(nbrTorchLighted == 3)
-        {
-            Instantiate(portal, new Vector3(0,1,7),new Quaternion(0,90,90,90));
-            print("a portal has open");
-        }
+
+        if (nbrTorchLighted == 3)
+            SpawnEndingPortal();
+    }
+
+    public void SpawnEndingPortal()
+    {
+        Instantiate(portal, new Vector3(0, 1, 7), new Quaternion(0, 90, 90, 90));
+    }
+
+    public void EndLevel()
+    {
+        if (lvlEnd)
+            lvlEnd.Display();
     }
 }
