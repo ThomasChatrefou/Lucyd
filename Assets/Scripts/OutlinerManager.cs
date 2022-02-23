@@ -32,7 +32,7 @@ public class OutlinerManager : MonoBehaviour
 
     void CustomMouseOver()
     {
-        if (WorldTransitionManager.darkWorld)
+        if (DualWorldManager.darkWorld)
             mask = LayerMask.GetMask("DarkWorld");
         else
             mask = LayerMask.GetMask("LightWorld");

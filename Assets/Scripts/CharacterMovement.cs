@@ -15,7 +15,7 @@ public class CharacterMovement : MonoBehaviour
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (WorldTransitionManager.darkWorld)
+            if (DualWorldManager.darkWorld)
                 mask = LayerMask.GetMask("DarkWorld");
             else
                 mask = LayerMask.GetMask("LightWorld");

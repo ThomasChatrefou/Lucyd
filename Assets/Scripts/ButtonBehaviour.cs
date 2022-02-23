@@ -79,8 +79,8 @@ public class ButtonBehaviour : MonoBehaviour
     void Update()
     {
         if (gameObject.layer == 0)
-            inDarkWorld = WorldTransitionManager.darkWorld;
-        if (inDarkWorld == WorldTransitionManager.darkWorld)
+            inDarkWorld = DualWorldManager.darkWorld;
+        if (inDarkWorld == DualWorldManager.darkWorld)
         {
             CustomMouseDown();
             if (pushable && isClicked && canHitAgain < Time.time)

@@ -2,12 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public interface IWorldManager
-{
-    public LayerMask GetCurrentLayerMask();
-}
 
-public class WorldTransitionManager : MonoBehaviour, IWorldManager
+public class DualWorldManager : MonoBehaviour, IWorldManager
 {
     [SerializeField] private GameObject lightWorldEnvironment;
     [SerializeField] private GameObject darkWorldEnvironment;

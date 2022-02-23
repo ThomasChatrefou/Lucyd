@@ -42,7 +42,7 @@ public class Carriable : MonoBehaviour
     {
         if (Input.GetMouseButton(0) && canClickAgain < Time.time)
         {
-            if (WorldTransitionManager.darkWorld)
+            if (DualWorldManager.darkWorld)
                 mask = LayerMask.GetMask("DarkWorld");
             else
                 mask = LayerMask.GetMask("LightWorld");

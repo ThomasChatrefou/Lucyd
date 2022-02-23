@@ -1,28 +1,37 @@
 ﻿using UnityEngine;
-using UnityEngine.AI;
 
-public class RayCastAgentMover : MonoBehaviour, IAgentMover
+public class RayCastBasedLayerSelector : MonoBehaviour, ISelector
 {
     private IWorldManager _worldManager;
 
-    private NavMeshAgent _agent;
+    private Transform _selection;
+    private Vector3 _position;
 
     private void Awake()
     {
-        _agent = GetComponent<NavMeshAgent>();
         _worldManager = GameObject.Find("GameManager").GetComponent<IWorldManager>();
     }
 
-    public void SetDestination(Ray ray)
+    public void Check(Ray ray)
     {
-        _agent.isStopped = false;
         LayerMask currentLayerMask;
 
         currentLayerMask = _worldManager.GetCurrentLayerMask();
 
         if (Physics.Raycast(ray, out var hit, Mathf.Infinity, currentLayerMask))
         {
-            _agent.SetDestination(hit.point);
+            _selection = hit.transform;
+            _position = hit.point;
         }
+    }
+
+    public Transform GetSelectedObject()
+    {
+        return _selection;
+    }
+
+    public Vector3 GetSelectedPosition()
+    {
+        return _position;
     }
 }

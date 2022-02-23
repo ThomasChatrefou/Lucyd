@@ -1,36 +1,44 @@
 using UnityEngine;
+using UnityEngine.AI;
 
-public class PlayerController : MonoBehaviour
+
+public class PlayerController : MonoBehaviour, IController
 {
     private IRayProvider _rayProvider;
-    private IAgentMover _agentMover;
+    private ISelector _selector;
+
+    private Transform _newInteraction;
+
+    private NavMeshAgent _agent;
+    private Vector3 _newDestination;
+
 
     private void Awake()
     {
-        _agentMover = GetComponent<IAgentMover>();
+        _agent = GetComponent<NavMeshAgent>();
+        _selector = GetComponent<ISelector>();
         _rayProvider = GetComponent<IRayProvider>();
     }
 
-    private void Update()
+    public void OnMove()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            OnLeftClick();
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            OnRightClick();
-        }
+        _selector.Check(_rayProvider.CreateRay());
+        _newDestination = _selector.GetSelectedPosition();
+        _agent.SetDestination(_newDestination);
     }
 
-    private void OnLeftClick()
+    public void OnInteract()
     {
+        _selector.Check(_rayProvider.CreateRay());
+        _newInteraction = _selector.GetSelectedObject();
 
+        if (_newInteraction) TryToInteract(_newInteraction);
     }
 
-    private void OnRightClick()
+    public void TryToInteract(Transform objectToInteract)
     {
-        _agentMover.SetDestination(_rayProvider.CreateRay());
+        var interactable = objectToInteract.GetComponent<IInteractable>();
+        if (interactable == null) return;
+        interactable.OnInteract();
     }
 }
