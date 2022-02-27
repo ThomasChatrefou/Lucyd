@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         if (Input.anyKey)
             resetLevelTimer = resetLevelCooldown;
 
-        if (resetLevelTimer < 0)
+        if (sceneFader && resetLevelTimer < 0)
             sceneFader.FadeTo(menuName);
 
         resetLevelTimer -= Time.deltaTime;
