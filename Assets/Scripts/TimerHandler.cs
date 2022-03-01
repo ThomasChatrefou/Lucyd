@@ -18,6 +18,6 @@ class TimerHandler
             yield return 0;
         }
 
-        Ended?.Invoke();
+        if (Ended != null) Ended.Invoke();
     }
 }

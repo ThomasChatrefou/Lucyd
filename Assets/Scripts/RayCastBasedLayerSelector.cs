@@ -24,7 +24,7 @@ public class RayCastBasedLayerSelector : MonoBehaviour, ISelector
             _position = hit.point;
         }
     }
-
+    
     public Transform GetSelectedObject()
     {
         return _selection;

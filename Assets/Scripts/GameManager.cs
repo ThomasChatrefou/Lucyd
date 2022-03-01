@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public const string PLAYER_TAG = "Player";
+    public const string FEUMAN_TAG = "Follower";
+
     public static GameManager instance = null;
 
     public int nbrTorchLighted = 0;

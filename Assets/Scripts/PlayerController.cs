@@ -6,10 +6,8 @@ public class PlayerController : MonoBehaviour, IController
 {
     private IRayProvider _rayProvider;
     private ISelector _selector;
-
-    private Transform _newInteraction;
-
     private NavMeshAgent _agent;
+    private Transform _newInteraction;
     private Vector3 _newDestination;
 
 

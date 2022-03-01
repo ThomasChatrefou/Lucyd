@@ -2,78 +2,75 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeverBehaviour : MonoBehaviour
+public class LeverBehaviour : MonoBehaviour, IInteractable
 {
-    public float leverSpeed = 40;
+    [HideInInspector] public float Percent;
 
-    public float percent = 0;
+    [SerializeField] private Transform leverStick;
+    [SerializeField] private float leverSpeed = 70;
+    [SerializeField] private float maxRotation = 90;
+    [SerializeField] private string playerTag = "Player";
 
-    private bool pullable = false;
+    private bool _inRange = false;
+    private bool _isPulling = false;
+    private float _currentRotation = 0;
+    private float _stepRotation;
+    private IController _characterController;
 
-    private float currentRotation = 0;
-    private float stepRotation;
-    private float maxRotation = 90;
-
-    private Transform leverStick;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        leverStick = transform.GetChild(1);
+        _characterController = GameObject.Find("Player").GetComponent<IController>();
+        _stepRotation = Time.deltaTime * leverSpeed;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    public void OnInteract()
     {
-        stepRotation = Time.deltaTime * leverSpeed;
-
-        if (pullable)
+        if (_inRange)
         {
-            if (Input.GetMouseButton(0))
-            {
-                if(currentRotation < maxRotation)
-                {
-                    leverStick.Rotate(stepRotation, 0, 0,Space.Self);
-                    currentRotation += stepRotation;
-                    percent = currentRotation / maxRotation;
-                }
-            }
-            else
-            {
-                if (currentRotation > 0)
-                {
-                    leverStick.Rotate(-stepRotation, 0, 0, Space.Self);
-                    currentRotation -= stepRotation;
-                    percent = currentRotation / maxRotation;
-                }
-            }
+            _isPulling = true;
         }
         else
         {
-            if (currentRotation > 0)
-            {
-                leverStick.Rotate(-stepRotation, 0, 0, Space.Self);
-                currentRotation -= stepRotation;
-                percent = currentRotation / maxRotation;
-            }
+            _characterController.OnMove();
         }
     }
 
+    void FixedUpdate()
+    {
+        if (_isPulling)
+        {
+            _isPulling = false;
+            if (_currentRotation > maxRotation) return;
+            RotateOneStep(false);
+        }
+        else
+        {
+            if (_currentRotation < 0) return;
+            RotateOneStep(true);
+        }
+    }
+
+    private void RotateOneStep(bool inverseRotation)
+    {
+        int sign = inverseRotation ? -1 : 1;
+        leverStick.Rotate(sign * _stepRotation, 0, 0, Space.Self);
+        _currentRotation += sign * _stepRotation;
+        Percent = _currentRotation / maxRotation;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(playerTag))
         {
-            pullable = true;
+            _inRange = true;
         }
     }
 
-
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(playerTag))
         {
-            pullable = false;
+            _inRange = false;
         }
     }
 }

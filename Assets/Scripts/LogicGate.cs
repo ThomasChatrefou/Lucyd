@@ -62,7 +62,7 @@ public class LogicGate : MonoBehaviour
             if (levers.Count + gates.Count > 0)
             {
                 foreach (LeverBehaviour lever in levers)
-                    leversSum += lever.percent;
+                    leversSum += lever.Percent;
 
                 foreach (LogicGate gate in gates)
                     leversSum += gate.output;

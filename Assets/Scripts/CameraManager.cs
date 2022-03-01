@@ -40,12 +40,12 @@ public class CameraManager : MonoBehaviour
         while (((Cam.transform.position + Direction * CamSpeed) - CamAnchor.position).magnitude > 0.5f)
         {
             Cam.transform.position += Direction * CamSpeed;
-            yield return null;
+            yield return 0;
         }
         while (PauseTimer > 0)
         {
             PauseTimer -= Time.deltaTime;
-            yield return null;
+            yield return 0;
         }
 
         Player.GetComponent<CharacterMovement>().enabled = true;
