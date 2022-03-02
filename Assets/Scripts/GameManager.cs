@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public const string PLAYER_TAG = "Player";
-    public const string FEUMAN_TAG = "Follower";
+    public const string TAG_PLAYER = "Player";
+    public const string TAG_FEUMAN = "Follower";
+    public const string TAG_MOVABLE = "MovableObject";
+    public const string TAG_GROUND = "Ground";
+    public const string TAG_DOOR = "Door";
 
     public static GameManager instance = null;
 

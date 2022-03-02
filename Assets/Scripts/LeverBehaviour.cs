@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LeverBehaviour : MonoBehaviour, IInteractable
 {
-    [HideInInspector] public float Percent;
+    [HideInInspector] public float Percent = 0;
 
     [SerializeField] private Transform leverStick;
     [SerializeField] private float leverSpeed = 70;

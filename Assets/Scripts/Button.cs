@@ -1,11 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 
 public class Button : MonoBehaviour, IInteractable
 {
-    [HideInInspector] public bool On;
+    [HideInInspector] public bool On = false;
 
     [SerializeField] private bool canBeDisabledByHitAgain = true;
     [SerializeField] private bool hasTimer;
