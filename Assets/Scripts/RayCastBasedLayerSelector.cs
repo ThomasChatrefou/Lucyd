@@ -7,6 +7,9 @@ public class RayCastBasedLayerSelector : MonoBehaviour, ISelector
     private Transform _selection;
     private Vector3 _position;
 
+    public delegate void SelectorDelegate();
+    public event SelectorDelegate Checked;
+
     private void Awake()
     {
         _worldManager = GameObject.Find("GameManager").GetComponent<IWorldManager>();
@@ -23,6 +26,8 @@ public class RayCastBasedLayerSelector : MonoBehaviour, ISelector
             _selection = hit.transform;
             _position = hit.point;
         }
+
+        Checked?.Invoke();
     }
     
     public Transform GetSelectedObject()

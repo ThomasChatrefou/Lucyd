@@ -9,13 +9,10 @@ public class Button : MonoBehaviour, IInteractable
     [SerializeField] private bool canBeDisabledByHitAgain = true;
     [SerializeField] private bool hasTimer;
     [SerializeField] private float switchOnDuration = 3f;
-    [SerializeField] private float antiSpamCooldown = 1f;
-    [SerializeField] private string playerTag = "Player";
     [SerializeField] private string animatorTrigger = "Pressed";
 
     private bool _inRange;
     private bool _hasInteracted;
-    private float _lastInteractionTime;
     private Animator _animator;
     private TimerHandler _timerBeforeSwitchOff;
     private IEnumerator _timerRoutine;
@@ -43,9 +40,10 @@ public class Button : MonoBehaviour, IInteractable
     
     public void OnInteract()
     {
-        if(Time.time - _lastInteractionTime < antiSpamCooldown) return;
-        _lastInteractionTime = Time.time;
+    }
 
+    public void OnBeginInteract()
+    {
         if (_inRange)
         {
             Toggle();
@@ -55,6 +53,11 @@ public class Button : MonoBehaviour, IInteractable
             _characterController.OnMove();
             _hasInteracted = true;
         }
+    }
+
+    public void OnEndInteract()
+    {
+
     }
 
     private void Toggle()
@@ -104,7 +107,7 @@ public class Button : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(playerTag))
+        if (other.CompareTag(GameManager.TAG_PLAYER))
         {
             _inRange = true;
             if (_hasInteracted) Toggle();
@@ -113,7 +116,7 @@ public class Button : MonoBehaviour, IInteractable
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(playerTag))
+        if (other.CompareTag(GameManager.TAG_PLAYER))
         {
             _inRange = false;
         }

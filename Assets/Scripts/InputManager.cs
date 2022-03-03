@@ -13,15 +13,20 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         if (playerController == null) return;
-        
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            playerController.OnBeginInteract();
+        }
+
         if (Input.GetButton("Fire1"))
         {
             playerController.OnInteract();
         }
 
-        if (Input.GetButton("Fire2"))
+        if (Input.GetButtonUp("Fire1"))
         {
-            playerController.OnMove();
+            playerController.OnEndInteract();
         }
     }
 }

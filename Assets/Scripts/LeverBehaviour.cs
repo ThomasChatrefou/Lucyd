@@ -9,7 +9,6 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
     [SerializeField] private Transform leverStick;
     [SerializeField] private float leverSpeed = 70;
     [SerializeField] private float maxRotation = 90;
-    [SerializeField] private string playerTag = "Player";
 
     private bool _inRange = false;
     private bool _isPulling = false;
@@ -25,6 +24,11 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
+        
+    }
+
+    public void OnBeginInteract()
+    {
         if (_inRange)
         {
             _isPulling = true;
@@ -34,12 +38,16 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
             _characterController.OnMove();
         }
     }
+    
+    public void OnEndInteract()
+    {
+        _isPulling = false;
+    }
 
     void FixedUpdate()
     {
         if (_isPulling)
         {
-            _isPulling = false;
             if (_currentRotation > maxRotation) return;
             RotateOneStep(false);
         }
@@ -60,7 +68,7 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(playerTag))
+        if (other.CompareTag(GameManager.TAG_PLAYER))
         {
             _inRange = true;
         }
@@ -68,7 +76,7 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(playerTag))
+        if (other.CompareTag(GameManager.TAG_PLAYER))
         {
             _inRange = false;
         }
