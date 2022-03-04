@@ -10,6 +10,7 @@ public interface IPickable
 
 public class Pickable : MonoBehaviour, IInteractable, IPickable
 {
+    [SerializeField] private Transform pickingAnchor;
     [SerializeField] private string pickupTrigger = "Pickup";
     [SerializeField] private string dropTrigger = "Drop";
 
@@ -19,6 +20,7 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
     private Animator _animator;
     private Transform _defaultParent;
     private GameObject _character;
+    private PickableManager _manager;
     private IController _characterController;
 
     private void Awake()
@@ -32,12 +34,16 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
         _defaultParent = transform.parent;
     }
 
+
     public void OnInteract()
     {
     }
 
     public void OnBeginInteract()
     {
+
+        _characterController.OnMoveToDestination(pickingAnchor.position);
+
         if (_inRange)
         {
             if (transform.parent.CompareTag(GameManager.TAG_PLAYER))

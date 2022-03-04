@@ -8,16 +8,22 @@ public interface ISpot
 
 public class PressPlate : MonoBehaviour, IInteractable, ISpot
 {
-    [HideInInspector] public bool On = false;
+    public bool On { get => nObjectsOnPress > 0; }
 
     [SerializeField] private Transform socket;
     [SerializeField] private string pressedTrigger = "Pressed";
     [SerializeField] private string releasedTrigger = "Released";
 
+    private int nObjectsOnPress = 0;
     private Animator _animator;
+    private GameObject _character;
+    private IController _characterController;
+
 
     private void Start()
     {
+        _character = GameObject.Find("Player");
+        _characterController = _character.GetComponent<IController>();
         _animator = GetComponent<Animator>();
     }
 
@@ -28,7 +34,7 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
 
     public void OnBeginInteract()
     {
-
+        _characterController.OnMoveToDestination(socket.position);
     }
 
     public void OnEndInteract()
@@ -43,26 +49,25 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
 
     private void OnTriggerEnter(Collider other)
     {
-        if (On) return;
-
+        if (nObjectsOnPress > 0) return;
 
         if (other.CompareTag(GameManager.TAG_PLAYER) || other.CompareTag(GameManager.TAG_MOVABLE))
         {
-            On = true;
+            nObjectsOnPress++;
             if (_animator) _animator.SetTrigger(pressedTrigger);
         }
-        print(On);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!On) return;
+        if (nObjectsOnPress < 1) return;
 
         if (other.CompareTag(GameManager.TAG_PLAYER) || other.CompareTag(GameManager.TAG_MOVABLE))
         {
-            On = false;
+            nObjectsOnPress--;
             if (_animator) _animator.SetTrigger(releasedTrigger);
         }
-        print(On);
+
+        if (nObjectsOnPress < 0) nObjectsOnPress = 0;
     }
 }

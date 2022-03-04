@@ -1,13 +1,17 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 
 public class PlayerController : MonoBehaviour, IController
 {
-    // number of new destinations computed every second when moving by holding click
-    [SerializeField] private float dragMoveRate = 6f;
+    // number of new destinations every second when holding click
+    [SerializeField] private float moveRateOnDrag = 12f;
+    // number of interactions every second when holding click
+    [SerializeField] private float interactionRateOnDrag = 2f;
 
     private float _lastMoveTime;
+    private float _lastInteractionTime;
     private Vector3 _newDestination;
     private Transform _newInteraction;
     private NavMeshAgent _agent;
@@ -23,23 +27,18 @@ public class PlayerController : MonoBehaviour, IController
         _rayProvider = GetComponent<IRayProvider>();
     }
 
-    public void OnMove()
-    {
-        _lastMoveTime = Time.time;
-        _selector.Check(_rayProvider.CreateRay());
-        _newDestination = _selector.GetSelectedPosition();
-        _agent.SetDestination(_newDestination);
-    }
-
     public void OnInteract()
     {
+        if (Time.time - _lastInteractionTime < 1f / interactionRateOnDrag) return;
+        if (Time.time - _lastMoveTime < 1f / moveRateOnDrag) return;
+
         if (CheckInteraction())
         {
+            _lastInteractionTime = Time.time;
             _interactable.OnInteract();
         }
         else
         {
-            if (Time.time - _lastMoveTime < 1f / dragMoveRate) return;
             OnMove();
         }
     }
@@ -66,9 +65,38 @@ public class PlayerController : MonoBehaviour, IController
     {
         _selector.Check(_rayProvider.CreateRay());
         _newInteraction = _selector.GetSelectedObject();
+        _newDestination = _selector.GetSelectedPosition();
 
         _interactable = _newInteraction.GetComponent<IInteractable>();
         if (_interactable != null) return true;
         return false;
+    }
+
+    public void OnMove()
+    {
+        _lastMoveTime = Time.time;
+        _agent.SetDestination(_newDestination);
+    }
+
+    public void OnMoveToMousePosition()
+    {
+        _selector.Check(_rayProvider.CreateRay());
+        _newDestination = _selector.GetSelectedPosition();
+        OnMove();
+    }
+    
+    public void OnMoveToDestination(Vector3 destination)
+    {
+        _newDestination = destination;
+        OnMove();
+    }
+
+    public IEnumerator CheckDestinationReached()
+    {
+        while(_agent.remainingDistance >= 0.1f)
+        {
+
+            yield return null;
+        }
     }
 }
