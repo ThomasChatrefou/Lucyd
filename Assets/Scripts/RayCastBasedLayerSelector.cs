@@ -1,22 +1,32 @@
 ﻿using UnityEngine;
 
+
+[RequireComponent(typeof(IRayProvider))]
 public class RayCastBasedLayerSelector : MonoBehaviour, ISelector
 {
-    private IWorldManager _worldManager;
-
     private Transform _selection;
     private Vector3 _position;
+    private IRayProvider _rayProvider;
+    private IWorldManager _worldManager;
 
     public delegate void SelectorDelegate();
     public event SelectorDelegate Checked;
 
     private void Awake()
     {
-        _worldManager = GameObject.Find("GameManager").GetComponent<IWorldManager>();
+        _rayProvider = GetComponent<IRayProvider>();
+        _worldManager = GameManager.instance.GetComponent<IWorldManager>();
+    }
+
+    public void OnSelect()
+    {
+        Check(_rayProvider.CreateRay());
     }
 
     public void Check(Ray ray)
     {
+        if (_worldManager == null) return;
+
         LayerMask currentLayerMask;
 
         currentLayerMask = _worldManager.GetCurrentLayerMask();

@@ -2,7 +2,7 @@
 
 internal interface ISelector
 {
-    public void Check(Ray ray);
+    public void OnSelect();
 
     public Transform GetSelectedObject();
 

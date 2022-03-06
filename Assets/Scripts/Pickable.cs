@@ -1,107 +1,72 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
-public interface IPickable
-{
-    public void Pickup();
-    public void Drop();
-}
 
+[RequireComponent(typeof(ISelector))]
 public class Pickable : MonoBehaviour, IInteractable, IPickable
 {
-    [SerializeField] private Transform pickingAnchor;
     [SerializeField] private string pickupTrigger = "Pickup";
     [SerializeField] private string dropTrigger = "Drop";
 
-    private bool _inRange;
-    private bool _hasInteracted;
     private NavMeshObstacle _obstacle;
     private Animator _animator;
     private Transform _defaultParent;
     private GameObject _character;
-    private PickableManager _manager;
+    private PickableComponent _characterPickableComponent;
     private IController _characterController;
+    private ISelector _nearestSpotSelector;
+
 
     private void Awake()
     {
         _character = GameObject.Find("Player");
+        _characterPickableComponent = _character.GetComponent<PickableComponent>();
         _characterController = _character.GetComponent<IController>();
 
+        _nearestSpotSelector = GetComponent<ISelector>();
         _obstacle = GetComponentInChildren<NavMeshObstacle>();
         _animator = GetComponentInChildren<Animator>();
-
         _defaultParent = transform.parent;
     }
 
-
-    public void OnInteract()
-    {
-    }
+    public void OnInteract() { }
 
     public void OnBeginInteract()
     {
+        if (_characterPickableComponent == null) return;
 
-        _characterController.OnMoveToDestination(pickingAnchor.position);
-
-        if (_inRange)
+        if (_characterPickableComponent.HasPickable())
         {
-            if (transform.parent.CompareTag(GameManager.TAG_PLAYER))
-                Drop();
-            else
-                Pickup();
+            _characterController.Stop();
+            if (_characterPickableComponent.GetPickableObject() != gameObject) return;
+            Drop();
         }
         else
         {
-            _characterController.OnMove();
-            _hasInteracted = true;
+            _nearestSpotSelector.OnSelect();
+            _characterController.DestinationReached += Pickup;
+            _characterController.MoveToDestinationWithOrientation(_nearestSpotSelector.GetSelectedObject());
         }
     }
 
-    public void OnEndInteract()
-    {
-
-    }
+    public void OnEndInteract() { }
 
     public void Pickup()
     {
+        transform.SetParent(_character.transform, true);
+
+        _characterPickableComponent.SetPickableObject(gameObject, this);
+        _characterController.DestinationReached -= Pickup;
+        _obstacle.enabled = false;
         _animator.SetTrigger(pickupTrigger);
-        _hasInteracted = false;
     }
 
     public void Drop()
     {
-        _animator.SetTrigger(dropTrigger);
-    }
-
-    // called from animation event
-    public void ParentToCharacter()
-    {
-        transform.SetParent(_character.transform, true);
-        _obstacle.enabled = false;
-    }
-
-    // called from animation event
-    public void UnparentFromCharacter()
-    {
         transform.SetParent(_defaultParent, true);
+
+        _characterPickableComponent.SetPickableObject(null, null);
         _obstacle.enabled = true;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag(GameManager.TAG_PLAYER))
-        {
-            _inRange = true;
-            if (_hasInteracted) Pickup();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag(GameManager.TAG_PLAYER))
-        {
-            _inRange = false;
-        }
+        _animator.SetTrigger(dropTrigger);
     }
 }
