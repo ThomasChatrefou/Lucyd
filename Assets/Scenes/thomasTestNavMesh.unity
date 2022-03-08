@@ -781,6 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ff6da88c855c14493c006205ff646c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shadowPrefab: {fileID: 4526524997302427832, guid: cf59232d119faeb429f5427f83b4cde2, type: 3}
   pickupTrigger: Pickup
   dropTrigger: Drop
 --- !u!54 &409243095
@@ -1241,6 +1242,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1471439134}
+    - target: {fileID: 2230416595234456821, guid: a3bd34437e932504a8aa0adf2bab22d0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2230416595234456821, guid: a3bd34437e932504a8aa0adf2bab22d0, type: 3}
       propertyPath: flexibility
       value: 1
@@ -1807,6 +1812,7 @@ GameObject:
   - component: {fileID: 1471439143}
   - component: {fileID: 1471439142}
   - component: {fileID: 1471439146}
+  - component: {fileID: 1471439145}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1841,7 +1847,7 @@ NavMeshAgent:
   m_Speed: 6
   m_Acceleration: 40
   avoidancePriority: 50
-  m_AngularSpeed: 200
+  m_AngularSpeed: 500
   m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -1980,6 +1986,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd4229234fe18a64eb51048934b9d71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!143 &1471439145
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471439134}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1471439146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2680,6 +2704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ff6da88c855c14493c006205ff646c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shadowPrefab: {fileID: 4526524997302427832, guid: cf59232d119faeb429f5427f83b4cde2, type: 3}
   pickupTrigger: Pickup
   dropTrigger: Drop
 --- !u!54 &2046640970

@@ -5,9 +5,11 @@ using UnityEngine.AI;
 [RequireComponent(typeof(ISelector))]
 public class Pickable : MonoBehaviour, IInteractable, IPickable
 {
+    [SerializeField] private GameObject shadowPrefab;
     [SerializeField] private string pickupTrigger = "Pickup";
     [SerializeField] private string dropTrigger = "Drop";
 
+    private GameObject _shadow;
     private NavMeshObstacle _obstacle;
     private Animator _animator;
     private Transform _defaultParent;
@@ -59,6 +61,8 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
         _characterController.DestinationReached -= Pickup;
         _obstacle.enabled = false;
         _animator.SetTrigger(pickupTrigger);
+
+        _shadow = Instantiate(shadowPrefab);
     }
 
     public void Drop()
@@ -68,5 +72,7 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
         _characterPickableComponent.SetPickableObject(null, null);
         _obstacle.enabled = true;
         _animator.SetTrigger(dropTrigger);
+
+        Destroy(_shadow);
     }
 }
