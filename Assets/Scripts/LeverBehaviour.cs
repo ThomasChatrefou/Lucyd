@@ -14,11 +14,11 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
     private bool _isPulling = false;
     private float _currentRotation = 0;
     private float _stepRotation;
-    private IController _characterController;
+    private GameObject _character;
+    private PlayerController _characterController;
 
     private void Awake()
     {
-        _characterController = GameObject.Find("Player").GetComponent<IController>();
         _stepRotation = Time.deltaTime * leverSpeed;
     }
 
@@ -27,8 +27,10 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
         
     }
 
-    public void OnBeginInteract()
+    public void OnBeginInteract(GameObject character)
     {
+        _character = character;
+        _characterController = _character.GetComponent<PlayerController>();
         if (_inRange)
         {
             _isPulling = true;
@@ -79,6 +81,7 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
         if (other.CompareTag(GameManager.TAG_PLAYER))
         {
             _inRange = false;
+            _isPulling = false;
         }
     }
 }

@@ -9,12 +9,12 @@ public class InteractionSpotSelector : MonoBehaviour, ISelector
     private Transform _selection;
     private Transform[] _interactionSpots;
     private GameObject _character;
-    private IController _characterController;
+    private PlayerController _characterController;
 
     private void Awake()
     {
         _character = GameObject.Find("Player");
-        _characterController = _character.GetComponent<IController>();
+        _characterController = _character.GetComponent<PlayerController>();
         _interactionSpots = interactionSpots.GetComponentsInChildren<Transform>();
     }
 

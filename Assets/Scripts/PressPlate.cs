@@ -19,26 +19,31 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
     private int nObjectsOnPress = 0;
     private Animator _animator;
     private GameObject _character;
-    private PickableComponent _characterPickableComponent;
-    private IController _characterController;
+    private PickableController _characterPickableController;
+    private PlayerController _characterController;
     private ISelector _nearestSpotSelector;
 
 
     private void Start()
     {
+        /*
         _character = GameObject.Find("Player");
-        _characterPickableComponent = _character.GetComponent<PickableComponent>();
+        _characterPickableController = _character.GetComponent<PickableController>();
         _characterController = _character.GetComponent<IController>();
-
+        */
         _animator = GetComponent<Animator>();
         _nearestSpotSelector = GetComponent<ISelector>();
     }
 
     public void OnInteract() { }
 
-    public void OnBeginInteract()
+    public void OnBeginInteract(GameObject character)
     {
-        if (_characterPickableComponent == null)
+        _character = character;
+        _characterController = _character.GetComponent<PlayerController>();
+        _characterPickableController = _character.GetComponent<PickableController>();
+
+        if (_characterPickableController == null)
         {
             _characterController.MoveToDestinationWithOrientation(socket);
             return;
@@ -46,7 +51,7 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
 
         if (nObjectsOnPress > 0) return;
 
-        if (_characterPickableComponent.HasPickable())
+        if (_characterPickableController.HasPickable())
         {
             _nearestSpotSelector.OnSelect();
             _characterController.DestinationReached += DropPickableOnPlate;
@@ -63,7 +68,7 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
     private void DropPickableOnPlate()
     {
         _characterController.DestinationReached -= DropPickableOnPlate;
-        _characterPickableComponent.GetPickable().Drop();
+        _characterPickableController.GetPickableComponent().Drop();
     }
 
     public Vector3 GetSocketPosition()

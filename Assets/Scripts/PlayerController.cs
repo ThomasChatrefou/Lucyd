@@ -4,79 +4,52 @@ using UnityEngine.AI;
 
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(OneButtonInputHandler))]
 [RequireComponent(typeof(ISelector))]
-public class PlayerController : MonoBehaviour, IController
+public class PlayerController : MonoBehaviour
 {
     public event IController.DestinationReachedHandler DestinationReached;
 
     // number of new destinations every second when holding click
     [SerializeField] private float moveRateOnDrag = 12f;
-    // number of interactions every second when holding click
-    [SerializeField] private float interactionRateOnDrag = 2f;
 
     private float _lastMoveTime;
-    private float _lastInteractionTime;
     private Vector3 _newDestination;
     private Vector3 _currentDestination;
-    private Transform _newInteraction;
     private NavMeshAgent _agent;
+    private OneButtonInputHandler _input;
     private ISelector _raycastSelector;
-    private IInteractable _interactable;
     private IEnumerator _rotationCoroutine;
-
 
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
         _raycastSelector = GetComponent<ISelector>();
+        _input = GetComponent<OneButtonInputHandler>();
     }
 
-    public void OnInteract()
+    private void Start()
     {
-        if (Time.time - _lastInteractionTime < 1f / interactionRateOnDrag) return;
-        if (Time.time - _lastMoveTime < 1f / moveRateOnDrag) return;
-
-        if (CheckInteraction())
-        {
-            _lastInteractionTime = Time.time;
-            _interactable.OnInteract();
-        }
-        else
-        {
-            OnMove();
-        }
+        if (_input == null) return;
+        _input.ButtonDown += OnMove;
+        _input.Button += OnMove;
     }
 
-    public void OnBeginInteract()
+    private void OnDestroy()
     {
-        if (CheckInteraction())
-        {
-            _interactable.OnBeginInteract();
-        }
-        else
-        {
-            OnMove();
-        }
-    }
-    
-    public void OnEndInteract()
-    {
-        if (CheckInteraction())
-            _interactable.OnEndInteract();
-    }
-
-    public bool CheckInteraction()
-    {
-        _raycastSelector.OnSelect();
-        _newInteraction = _raycastSelector.GetSelectedObject();
-        _newDestination = _raycastSelector.GetSelectedPosition();
-
-        _interactable = _newInteraction.GetComponent<IInteractable>();
-        if (_interactable != null) return true;
-        return false;
+        if (_input == null) return;
+        _input.ButtonDown -= OnMove;
+        _input.Button -= OnMove;
     }
 
     public void OnMove()
+    {
+        if (Time.time - _lastMoveTime < 1f / moveRateOnDrag) return;
+        _newDestination = _raycastSelector.GetSelectedPosition();
+        Move();
+    }
+
+    public void Move()
     {
         _lastMoveTime = Time.time;
         _agent.SetDestination(_newDestination);
@@ -86,7 +59,7 @@ public class PlayerController : MonoBehaviour, IController
     public void MoveToDestinationWithOrientation(Transform target)
     {
         SetupDestinationAndRotation(target);
-        OnMove();
+        Move();
         StartCoroutine(CheckDestinationReached());
     }
 

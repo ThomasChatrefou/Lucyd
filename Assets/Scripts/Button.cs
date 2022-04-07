@@ -16,12 +16,11 @@ public class Button : MonoBehaviour, IInteractable
     private Animator _animator;
     private TimerHandler _timerBeforeSwitchOff;
     private IEnumerator _timerRoutine;
-    private IController _characterController;
-
+    private PlayerController _characterController;
+    private GameObject _character;
 
     private void Awake()
     {
-        _characterController = GameObject.Find("Player").GetComponent<IController>();
         _animator = GetComponent<Animator>();
     }
 
@@ -42,8 +41,11 @@ public class Button : MonoBehaviour, IInteractable
     {
     }
 
-    public void OnBeginInteract()
+    public void OnBeginInteract(GameObject character)
     {
+        _character = character;
+        _characterController = _character.GetComponent<PlayerController>();
+
         if (_inRange)
         {
             Toggle();

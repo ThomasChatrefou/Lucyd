@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class PickableComponent : MonoBehaviour
+public class PickableController : MonoBehaviour
 {
     private GameObject _pickableObject;
     private IPickable _pickable;
@@ -16,7 +16,7 @@ public class PickableComponent : MonoBehaviour
         return _pickableObject;
     }
     
-    public IPickable GetPickable()
+    public IPickable GetPickableComponent()
     {
         return _pickable;
     }
@@ -25,5 +25,16 @@ public class PickableComponent : MonoBehaviour
     {
         _pickableObject = pickableObject;
         _pickable = pickable;
+    }
+
+    public void OnPickup(GameObject pickableObject)
+    {
+        pickableObject.transform.SetParent(transform, true);
+    }
+
+    public void OnDrop()
+    {
+        _pickable = null;
+        _pickableObject = null;
     }
 }
