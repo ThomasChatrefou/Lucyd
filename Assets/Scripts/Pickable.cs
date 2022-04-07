@@ -21,18 +21,18 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
 
     private void Awake()
     {
+        _character = GameObject.Find("Player");
+        _characterController = _character.GetComponent<PlayerController>();
+        _characterPickableController = _character.GetComponent<PickableController>();
+
         _nearestSpotSelector = GetComponent<ISelector>();
         _obstacle = GetComponentInChildren<NavMeshObstacle>();
         _animator = GetComponentInChildren<Animator>();
         _defaultParent = transform.parent;
     }
 
-    public void OnBeginInteract(GameObject character)
+    public void OnBeginInteract()
     {
-        _character = character;
-        _characterController = _character.GetComponent<PlayerController>();
-        _characterPickableController = _character.GetComponent<PickableController>();
-
         if (_characterPickableController == null) return;
 
         if (_characterPickableController.HasPickable())

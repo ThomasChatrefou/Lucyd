@@ -37,7 +37,7 @@ class InteractableController : MonoBehaviour
     public void OnBeginInteract()
     {
         if (CheckInteraction() == false) return;
-        _interactable.OnBeginInteract(gameObject);
+        _interactable.OnBeginInteract();
     }
 
     public void OnInteract()

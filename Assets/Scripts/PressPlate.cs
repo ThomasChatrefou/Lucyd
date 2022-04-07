@@ -26,23 +26,18 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
 
     private void Start()
     {
-        /*
         _character = GameObject.Find("Player");
+        _characterController = _character.GetComponent<PlayerController>();
         _characterPickableController = _character.GetComponent<PickableController>();
-        _characterController = _character.GetComponent<IController>();
-        */
+        
         _animator = GetComponent<Animator>();
         _nearestSpotSelector = GetComponent<ISelector>();
     }
 
     public void OnInteract() { }
 
-    public void OnBeginInteract(GameObject character)
+    public void OnBeginInteract()
     {
-        _character = character;
-        _characterController = _character.GetComponent<PlayerController>();
-        _characterPickableController = _character.GetComponent<PickableController>();
-
         if (_characterPickableController == null)
         {
             _characterController.MoveToDestinationWithOrientation(socket);
