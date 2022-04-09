@@ -42,6 +42,32 @@ public class PlayerController : MonoBehaviour
         _input.Button -= OnMove;
     }
 
+    public void DisableButtonMove()
+    {
+        if (_input == null) return;
+        _input.ButtonDown -= OnMove;
+        _input.Button -= OnMove;
+    }
+
+    public void EnableButtonMove()
+    {
+        if (_input == null) return;
+        _input.ButtonDown += OnMove;
+        _input.Button += OnMove;
+    }
+
+    public void DisableDragMove()
+    {
+        if (_input == null) return;
+        _input.Button -= OnMove;
+    }
+    
+    public void EnableDragMove()
+    {
+        if (_input == null) return;
+        _input.Button += OnMove;
+    }
+
     public void OnMove()
     {
         if (Time.time - _lastMoveTime < 1f / moveRateOnDrag) return;
@@ -54,6 +80,19 @@ public class PlayerController : MonoBehaviour
         _lastMoveTime = Time.time;
         _agent.SetDestination(_newDestination);
         _currentDestination = _newDestination;
+    }
+
+    public void MoveToDestination(Vector3 target)
+    {
+        SetupDestination(target);
+        Move();
+        StartCoroutine(CheckDestinationReached());
+    }
+
+    private void SetupDestination(Vector3 target)
+    {
+        _newDestination = target;
+        _rotationCoroutine = null;
     }
 
     public void MoveToDestinationWithOrientation(Transform target)
@@ -81,7 +120,14 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(_rotationCoroutine);
+        if(_rotationCoroutine != null)
+        {
+            StartCoroutine(_rotationCoroutine);
+        }
+        else
+        {
+            DestinationReached?.Invoke();
+        }
     }
 
     private IEnumerator RotateCoroutine(Transform target)

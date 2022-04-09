@@ -24,11 +24,6 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
         _stepRotation = Time.deltaTime * leverSpeed;
     }
 
-    public void OnInteract()
-    {
-        
-    }
-
     public void OnBeginInteract()
     {
         if (_inRange)
@@ -39,6 +34,10 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
         {
             _characterController.OnMove();
         }
+    }
+
+    public void OnInteract()
+    {
     }
     
     public void OnEndInteract()

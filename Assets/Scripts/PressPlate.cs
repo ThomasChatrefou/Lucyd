@@ -34,7 +34,6 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
         _nearestSpotSelector = GetComponent<ISelector>();
     }
 
-    public void OnInteract() { }
 
     public void OnBeginInteract()
     {
@@ -57,6 +56,8 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
             _characterController.MoveToDestinationWithOrientation(socket);
         }
     }
+
+    public void OnInteract() { }
 
     public void OnEndInteract() { }
 

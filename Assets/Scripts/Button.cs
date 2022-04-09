@@ -38,10 +38,6 @@ public class Button : MonoBehaviour, IInteractable
         if (hasTimer) 
             _timerBeforeSwitchOff.Ended -= SwitchOff;
     }
-    
-    public void OnInteract()
-    {
-    }
 
     public void OnBeginInteract()
     {
@@ -54,6 +50,10 @@ public class Button : MonoBehaviour, IInteractable
             _characterController.OnMove();
             _hasInteracted = true;
         }
+    }
+    
+    public void OnInteract()
+    {
     }
 
     public void OnEndInteract()
