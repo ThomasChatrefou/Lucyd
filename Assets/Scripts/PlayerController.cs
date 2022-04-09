@@ -8,7 +8,10 @@ using UnityEngine.AI;
 [RequireComponent(typeof(ISelector))]
 public class PlayerController : MonoBehaviour
 {
-    public event IController.DestinationReachedHandler DestinationReached;
+    //public event IController.DestinationReachedHandler DestinationReached;
+
+    public delegate void DestinationReachedHandler();
+    public event DestinationReachedHandler DestinationReached;
 
     // number of new destinations every second when holding click
     [SerializeField] private float moveRateOnDrag = 12f;

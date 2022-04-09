@@ -1,12 +1,22 @@
 ﻿using UnityEngine;
 
 
+enum InteractionState
+{
+    Waiting,
+    Approaching,
+    InAnimation,
+    Interacting
+}
+
+
 [RequireComponent(typeof(ISelector))]
 class InteractableController : MonoBehaviour
 {
+    [HideInInspector] public InteractionState State;
+
     // number of interactions every second when holding click
     [SerializeField] private float interactionRateOnDrag = 2f;
-
 
     private float _lastInteractionTime;
     private IInteractable _Interactable;
@@ -21,6 +31,7 @@ class InteractableController : MonoBehaviour
 
     private void Start()
     {
+        State = InteractionState.Waiting;
         if (_input == null) return;
         _input.ButtonDown += OnBeginInteract;
         _input.Button += OnInteract;
@@ -37,7 +48,6 @@ class InteractableController : MonoBehaviour
 
     public void OnBeginInteract()
     {
-        //print("coucou");
         if (CheckInteraction() == false) return;
         _Interactable.OnBeginInteract();
     }

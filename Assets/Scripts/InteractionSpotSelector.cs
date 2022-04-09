@@ -3,8 +3,6 @@
 
 public class InteractionSpotSelector : MonoBehaviour, ISelector
 {
-    [SerializeField] private GameObject interactionSpots;
-
     private Vector3 _position;
     private Transform _selection;
     private Transform[] _interactionSpots;
@@ -15,7 +13,7 @@ public class InteractionSpotSelector : MonoBehaviour, ISelector
     {
         _character = GameObject.Find("Player");
         _characterController = _character.GetComponent<PlayerController>();
-        _interactionSpots = interactionSpots.GetComponentsInChildren<Transform>();
+        _interactionSpots = GetComponentsInChildren<Transform>();
     }
 
     public void OnSelect()
