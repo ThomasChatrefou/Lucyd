@@ -29,4 +29,9 @@ public class SpotInteractor : MonoBehaviour
         _characterController.DestinationReached -= OnDestinationReached;
         SpotReached?.Invoke();
     }
+
+    public ISelector GetSelector()
+    {
+        return _nearestSpotSelector;
+    }
 }

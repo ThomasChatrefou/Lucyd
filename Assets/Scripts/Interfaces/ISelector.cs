@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-internal interface ISelector
+public interface ISelector
 {
     public void OnSelect();
 

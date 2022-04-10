@@ -7,22 +7,19 @@ public interface ISpot
 }
 
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(ISelector))]
 public class PressPlate : MonoBehaviour, IInteractable, ISpot
 {
-    public bool On { get => nObjectsOnPress > 0; }
+    public bool On { get => _nObjectsOnPress > 0; }
 
     [SerializeField] private Transform socket;
     [SerializeField] private string pressedTrigger = "Pressed";
     [SerializeField] private string releasedTrigger = "Released";
 
-    private int nObjectsOnPress = 0;
+    private int _nObjectsOnPress = 0;
     private Animator _animator;
     private GameObject _character;
     private PickableController _characterPickableController;
     private PlayerController _characterController;
-    private ISelector _nearestSpotSelector;
-
 
     private void Start()
     {
@@ -31,9 +28,7 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
         _characterPickableController = _character.GetComponent<PickableController>();
         
         _animator = GetComponent<Animator>();
-        _nearestSpotSelector = GetComponent<ISelector>();
     }
-
 
     public void OnBeginInteract()
     {
@@ -43,56 +38,48 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
             return;
         }
 
-        if (nObjectsOnPress > 0) return;
-
-        if (_characterPickableController.HasPickable())
-        {
-            _nearestSpotSelector.OnSelect();
-            _characterController.DestinationReached += DropPickableOnPlate;
-            _characterController.MoveToDestinationWithOrientation(_nearestSpotSelector.GetSelectedObject());
-        }
-        else
+        if (!_characterPickableController.HasPickable())
         {
             _characterController.MoveToDestinationWithOrientation(socket);
+            return;
         }
+
+        if (_nObjectsOnPress > 0) return;
     }
 
     public void OnInteract() { }
 
     public void OnEndInteract() { }
 
-    private void DropPickableOnPlate()
-    {
-        _characterController.DestinationReached -= DropPickableOnPlate;
-        _characterPickableController.GetPickableComponent().Drop();
-    }
-
     public Vector3 GetSocketPosition()
     {
         return socket.position;
     }
 
+    public int GetnObjectsOnPress()
+    {
+        return _nObjectsOnPress;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (nObjectsOnPress > 0) return;
-
         if (other.CompareTag(GameManager.TAG_PLAYER) || other.CompareTag(GameManager.TAG_MOVABLE))
         {
-            nObjectsOnPress++;
+            _nObjectsOnPress++;
+            if (_nObjectsOnPress > 1) return;
             if (_animator) _animator.SetTrigger(pressedTrigger);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (nObjectsOnPress < 1) return;
-
         if (other.CompareTag(GameManager.TAG_PLAYER) || other.CompareTag(GameManager.TAG_MOVABLE))
         {
-            nObjectsOnPress--;
+            _nObjectsOnPress--;
+            if (_nObjectsOnPress > 0) return;
             if (_animator) _animator.SetTrigger(releasedTrigger);
         }
 
-        if (nObjectsOnPress < 0) nObjectsOnPress = 0;
+        if (_nObjectsOnPress < 0) _nObjectsOnPress = 0;
     }
 }

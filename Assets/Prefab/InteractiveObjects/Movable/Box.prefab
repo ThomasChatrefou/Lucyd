@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8621154924955451631}
   - component: {fileID: 8621154924955451536}
   - component: {fileID: 8621154924955451537}
-  - component: {fileID: 8621154924955451538}
   - component: {fileID: 5830262297046365175}
   m_Layer: 0
   m_Name: Box
@@ -131,21 +130,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!114 &8621154924955451538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8621154924955451539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 445bc7a2ba56ed14e92dd53c44dbabb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  antiSpamDelay: 0.1
-  shadowPrefab: {fileID: 4526524997302427832, guid: cf59232d119faeb429f5427f83b4cde2, type: 3}
-  cam: {fileID: 0}
 --- !u!114 &5830262297046365175
 MonoBehaviour:
   m_ObjectHideFlags: 0

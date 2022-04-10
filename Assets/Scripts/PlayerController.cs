@@ -16,23 +16,32 @@ public class PlayerController : MonoBehaviour
     // number of new destinations every second when holding click
     [SerializeField] private float moveRateOnDrag = 12f;
 
+    private int nCheckDestRoutine;
+    private int nRotationRoutine;
+
+
     private float _lastMoveTime;
     private Vector3 _newDestination;
     private Vector3 _currentDestination;
     private NavMeshAgent _agent;
     private OneButtonInputHandler _input;
-    private ISelector _raycastSelector;
+    private ISelector _defaultSelector;
+    private ISelector _currentSelector;
     private IEnumerator _rotationCoroutine;
 
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _raycastSelector = GetComponent<ISelector>();
+        _defaultSelector = GetComponent<ISelector>();
+        _currentSelector = _defaultSelector;
         _input = GetComponent<OneButtonInputHandler>();
     }
 
     private void Start()
     {
+        nCheckDestRoutine = 0;
+        nRotationRoutine = 0;
+
         if (_input == null) return;
         _input.ButtonDown += OnMove;
         _input.Button += OnMove;
@@ -59,23 +68,33 @@ public class PlayerController : MonoBehaviour
         _input.Button += OnMove;
     }
 
-    public void DisableDragMove()
+    public void EnableTargetMove(ISelector newSelector)
     {
         if (_input == null) return;
-        _input.Button -= OnMove;
+        _currentSelector = newSelector;
+        _input.Button += OnTargetMove;
     }
     
-    public void EnableDragMove()
+    public void DisableTargetMove()
     {
         if (_input == null) return;
-        _input.Button += OnMove;
+        _currentSelector = _defaultSelector;
+        _input.Button -= OnTargetMove;
     }
 
     public void OnMove()
     {
         if (Time.time - _lastMoveTime < 1f / moveRateOnDrag) return;
-        _newDestination = _raycastSelector.GetSelectedPosition();
+        _newDestination = _currentSelector.GetSelectedPosition();
         Move();
+    }
+
+    public void OnTargetMove()
+    {
+        if (Time.time - _lastMoveTime < 1f / moveRateOnDrag) return;
+
+        _currentSelector.OnSelect();
+        MoveToDestinationWithOrientation(_currentSelector.GetSelectedObject());
     }
 
     public void Move()
@@ -118,13 +137,17 @@ public class PlayerController : MonoBehaviour
         while(_agent.remainingDistance >= _agent.stoppingDistance || _agent.pathPending)
         {
             if ((_currentDestination - destinationBuffer).magnitude > _agent.stoppingDistance)
+            {
+                nCheckDestRoutine--;
                 yield break;
+            }
 
             yield return null;
         }
 
-        if(_rotationCoroutine != null)
+        if (_rotationCoroutine != null)
         {
+            if (nRotationRoutine > 0) yield break;
             StartCoroutine(_rotationCoroutine);
         }
         else
@@ -135,17 +158,23 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator RotateCoroutine(Transform target)
     {
-        _agent.isStopped = true;
-        float t = 0f; //interpolation parameter, belongs to [0,1]
+        if(target == null) yield break;
 
-        while(1f - Vector3.Dot(transform.forward, target.forward) >= 1E-10f)
+        nRotationRoutine++;
+        _agent.isStopped = true;
+        float t = 0f;   // interpolation parameter, belongs to [0,1]
+
+        while(target != null)
         {
+            if (1f - Vector3.Dot(transform.forward, target.forward) < 1E-10f) break;
             transform.rotation = Quaternion.Slerp(transform.rotation, target.rotation, t);
             t += Time.deltaTime;
             yield return null;
         }
 
+        nRotationRoutine--;
         _agent.isStopped = false;
+
         DestinationReached?.Invoke();
     }
 

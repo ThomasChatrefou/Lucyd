@@ -67,8 +67,6 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
         if (!_interacting) return;
         _interacting = false;
 
-        //print("END interact           |   " + _characterInteractableController.State);
-
         if (_characterInteractableController.State == InteractionState.Approaching)
         {
             _spotInteractor.SpotReached -= Pickup;
@@ -84,19 +82,25 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
 
         if (_characterInteractableController.State == InteractionState.Interacting)
         {
-            _characterController.DisableButtonMove();
-            _characterController.DestinationReached += Drop;
-            _characterController.MoveToDestination(_characterPickableController.GetDropPosition());
+            if (_shadow)
+            {
+                _characterController.DisableTargetMove();
+                PickableShadow pShadow = _shadow.GetComponent<PickableShadow>();
+                pShadow.Fix();
+                pShadow.GetShadowSpotInteractor().SpotReached += Drop;
+                pShadow.GetShadowSpotInteractor().GoToNearestSpot();
+            }
+            else
+            {
+                Drop();
+            }
             return;
         }
     }
 
     public void Pickup()
     {
-        //print("pickup                 |   " + _characterInteractableController.State);
-
         _characterInteractableController.State = InteractionState.InAnimation;
-
         transform.SetParent(_character.transform, true);
         _animator.SetTrigger(pickupTrigger);
         _characterPickableController.OnPickup(gameObject, this);
@@ -105,46 +109,36 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
 
     public void OnPickupAnimationEnd()
     {
-        //print("pickup animation end   |   " + _characterInteractableController.State);
-
         _characterInteractableController.State = InteractionState.Interacting;
         if (!_interacting) return;
 
-        _characterController.EnableButtonMove();
         _characterPickableController.OnPickupAnimationEnd();
-        _shadow = Instantiate(shadowPrefab);
+        _characterPickableController.SetDropPosition(transform.position);
+        _shadow = Instantiate(shadowPrefab, transform.position, Quaternion.identity);
     }
 
     public void Drop()
     {
-        //print("drop                   |   " + _characterInteractableController.State);
-
         _characterInteractableController.State = InteractionState.InAnimation;
-
         transform.SetParent(_defaultParent, true);
         _characterPickableController.OnDrop();
         _characterController.DestinationReached -= Drop;
         _obstacle.enabled = true;
         _animator.SetTrigger(dropTrigger);
+
     }
 
     public void OnDropAnimationEnd()
     {
-        //print("drop animation end     |   " + _characterInteractableController.State);
-
         _characterInteractableController.State = InteractionState.Waiting;
-
         _characterController.EnableButtonMove();
         Destroy(_shadow);
     }
 
     public void OnFailInteract()
     {
-        //print("fail interact          |   " + _characterInteractableController.State);
-
-        _characterInteractableController.State = InteractionState.Waiting;
-
         // here : maybe add a trigger for some UI to tell the player to hold the button
+        _characterInteractableController.State = InteractionState.Waiting;
         _characterController.EnableButtonMove();
         _spotInteractor.SpotReached -= OnFailInteract;
         _spotInteractor.SpotReached += Pickup;
