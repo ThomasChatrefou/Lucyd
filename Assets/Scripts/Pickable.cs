@@ -69,6 +69,8 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
 
         if (_characterInteractableController.State == InteractionState.Approaching)
         {
+            _characterController.EnableButtonMove();
+            _characterInteractableController.State = InteractionState.Waiting;
             _spotInteractor.SpotReached -= Pickup;
             _spotInteractor.SpotReached += OnFailInteract;
             return;
@@ -138,8 +140,6 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
     public void OnFailInteract()
     {
         // here : maybe add a trigger for some UI to tell the player to hold the button
-        _characterInteractableController.State = InteractionState.Waiting;
-        _characterController.EnableButtonMove();
         _spotInteractor.SpotReached -= OnFailInteract;
         _spotInteractor.SpotReached += Pickup;
     }
