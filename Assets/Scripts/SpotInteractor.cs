@@ -14,7 +14,7 @@ public class SpotInteractor : MonoBehaviour
     {
         _character = GameObject.Find("Player");
         _characterController = _character.GetComponent<PlayerController>();
-        _nearestSpotSelector = GetComponentInChildren<ISelector>();        
+        _nearestSpotSelector = GetComponentInChildren<ISelector>();
     }
 
     public void GoToNearestSpot()

@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 
+[RequireComponent(typeof(SpotInteractor))]
 public class Button : MonoBehaviour, IInteractable
 {
     [HideInInspector] public bool On = false;
@@ -11,23 +12,27 @@ public class Button : MonoBehaviour, IInteractable
     [SerializeField] private float switchOnDuration = 3f;
     [SerializeField] private string animatorTrigger = "Pressed";
 
+    private bool _onSpot = false;
     private bool _inRange;
     private bool _hasInteracted;
     private Animator _animator;
     private TimerHandler _timerBeforeSwitchOff;
     private IEnumerator _timerRoutine;
-    private PlayerController _characterController;
     private GameObject _character;
+    private PlayerController _characterController;
+    private SpotInteractor _spotInteractor;
 
     private void Awake()
     {
         _character = GameObject.Find("Player");
-        _characterController = _character.GetComponent<PlayerController>();
+        _characterController = _character.GetComponent<PlayerController>(); 
+        _spotInteractor = GetComponent<SpotInteractor>();
         _animator = GetComponent<Animator>();
     }
 
     private void Start()
     {
+        _spotInteractor.SpotReached += Toggle;
         if (!hasTimer) return;
         _timerBeforeSwitchOff = new TimerHandler();
         _timerBeforeSwitchOff.Ended += SwitchOff;
@@ -35,21 +40,14 @@ public class Button : MonoBehaviour, IInteractable
 
     private void OnDestroy()
     {
+        _spotInteractor.SpotReached -= Toggle;
         if (hasTimer) 
             _timerBeforeSwitchOff.Ended -= SwitchOff;
     }
 
     public void OnBeginInteract()
     {
-        if (_inRange)
-        {
-            Toggle();
-        }
-        else
-        {
-            _characterController.OnMove();
-            _hasInteracted = true;
-        }
+        _spotInteractor.GoToNearestSpot();
     }
     
     public void OnInteract()
