@@ -23,7 +23,7 @@ public class DualWorldManager : MonoBehaviour, IWorldManager
     public static bool darkWorld = false;
     public bool worldSwap;
     private float worldFadeTimer;
-    private ButtonBehaviour darkFeu;
+    private DarkFeu darkFeu;
     private GameObject renderScreen;
 
     private NavMeshAgent playerAgent;
@@ -60,7 +60,7 @@ public class DualWorldManager : MonoBehaviour, IWorldManager
     {
         worldFadeTimer = 0;
         renderScreen = GameObject.Find("RenderScreen");
-        darkFeu = GameObject.Find("DarkFeu").GetComponent<ButtonBehaviour>();
+        darkFeu = GameObject.Find("DarkFeu").GetComponent<DarkFeu>();
         playerAgent = GameObject.FindWithTag("Player").GetComponent<NavMeshAgent>();
 
         GameObject follower = GameObject.FindWithTag("Follower");
@@ -124,9 +124,9 @@ public class DualWorldManager : MonoBehaviour, IWorldManager
     {
         if (Input.GetAxis("Jump") > 0 && worldFadeTimer < 0)
         {
-            darkFeu.on = !darkFeu.on;
+            darkFeu.On = !darkFeu.On;
         }
-        worldSwap = darkFeu.on;
+        worldSwap = darkFeu.On;
         worldFadeTimer -= Time.deltaTime;
 
         if (worldSwap != darkWorld)

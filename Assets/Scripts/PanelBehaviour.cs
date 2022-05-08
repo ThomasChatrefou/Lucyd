@@ -14,9 +14,6 @@ public class PanelBehaviour : MonoBehaviour
     public bool moveBackward;
 
     public float dist;
-    public float speed = 1.0f;
-
-    private float eps = 0.01f;
 
     private Vector3 targetPos;
     private Vector3 originalPos;
@@ -51,20 +48,7 @@ public class PanelBehaviour : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        targetPos = originalPos + gate.output * dist * translation;
-
-        Vector3 pos = transform.position;
-
-        float sgn;
-
-        if (Vector3.Distance(pos, targetPos) > eps)
-        {
-            if (Vector3.Distance(pos, originalPos) < eps)
-                sgn = 1.0f;
-            else
-                sgn = -Mathf.Sign(Vector3.Dot(originalPos - pos, targetPos - pos));
-
-            transform.Translate(sgn * Time.deltaTime * speed * translation, Space.World);
-        }
+        targetPos = originalPos + dist * translation;
+        transform.position = Vector3.Lerp(originalPos, targetPos, gate.output);        
     }
 }

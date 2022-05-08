@@ -48,6 +48,9 @@ class InteractableController : MonoBehaviour
 
     public void OnBeginInteract()
     {
+        if (_Interactable != null) return;
+        if (State != InteractionState.Waiting) return;
+
         if (CheckInteraction() == false) return;
         _Interactable.OnBeginInteract();
     }
@@ -63,7 +66,10 @@ class InteractableController : MonoBehaviour
     public void OnEndInteract()
     {
         if (_Interactable == null) return;
+
         _Interactable.OnEndInteract();
+
+        _Interactable = null;
     }
 
     public bool CheckInteraction()
@@ -73,4 +79,5 @@ class InteractableController : MonoBehaviour
         if (_Interactable == null) return false;
         return true;
     }
+
 }

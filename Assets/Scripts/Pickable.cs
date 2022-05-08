@@ -123,7 +123,7 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
     {
         _characterInteractableController.State = InteractionState.InAnimation;
         transform.SetParent(_defaultParent, true);
-        _characterPickableController.OnDrop();
+        _characterPickableController.OnDrop(); 
         _characterController.DestinationReached -= Drop;
         _obstacle.enabled = true;
         _animator.SetTrigger(dropTrigger);

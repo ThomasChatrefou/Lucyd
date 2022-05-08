@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
 
     public delegate void DestinationReachedHandler();
     public event DestinationReachedHandler DestinationReached;
+    
+    public delegate void DestinationAbortedHandler();
+    public event DestinationAbortedHandler DestinationAborted;
 
     // number of new destinations every second when holding click
     [SerializeField] private float moveRateOnDrag = 12f;
@@ -86,12 +89,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.time - _lastMoveTime < 1f / moveRateOnDrag) return;
         _newDestination = _currentSelector.GetSelectedPosition();
+        print("move");
         Move();
     }
 
     public void OnTargetMove()
     {
         if (Time.time - _lastMoveTime < 1f / moveRateOnDrag) return;
+        if (_currentSelector == null) return;
 
         _currentSelector.OnSelect();
         MoveToDestinationWithOrientation(_currentSelector.GetSelectedObject());
@@ -132,6 +137,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator CheckDestinationReached()
     {
+        nCheckDestRoutine++;
         Vector3 destinationBuffer = _newDestination;
 
         while(_agent.remainingDistance >= _agent.stoppingDistance || _agent.pathPending)
@@ -139,6 +145,7 @@ public class PlayerController : MonoBehaviour
             if ((_currentDestination - destinationBuffer).magnitude > _agent.stoppingDistance)
             {
                 nCheckDestRoutine--;
+                DestinationAborted?.Invoke();
                 yield break;
             }
 
@@ -147,13 +154,19 @@ public class PlayerController : MonoBehaviour
 
         if (_rotationCoroutine != null)
         {
-            if (nRotationRoutine > 0) yield break;
+            if (nRotationRoutine > 0)
+            {
+                nCheckDestRoutine--;
+                yield break;
+            }
             StartCoroutine(_rotationCoroutine);
         }
         else
         {
             DestinationReached?.Invoke();
         }
+
+        nCheckDestRoutine--;
     }
 
     private IEnumerator RotateCoroutine(Transform target)

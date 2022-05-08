@@ -32,24 +32,40 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
 
     public void OnBeginInteract()
     {
+        if (_nObjectsOnPress > 0) return;
+
         if (_characterPickableController == null)
         {
+            _characterController.DisableButtonMove();
             _characterController.MoveToDestinationWithOrientation(socket);
             return;
         }
 
         if (!_characterPickableController.HasPickable())
         {
+            _characterController.DisableButtonMove();
             _characterController.MoveToDestinationWithOrientation(socket);
             return;
         }
 
-        if (_nObjectsOnPress > 0) return;
     }
 
     public void OnInteract() { }
 
-    public void OnEndInteract() { }
+    public void OnEndInteract()
+    {
+        if (_nObjectsOnPress > 0) return;
+
+        if (_characterPickableController == null)
+        {
+            _characterController.EnableButtonMove();
+        }
+
+        if (!_characterPickableController.HasPickable())
+        {
+            _characterController.EnableButtonMove();
+        }
+    }
 
     public Vector3 GetSocketPosition()
     {

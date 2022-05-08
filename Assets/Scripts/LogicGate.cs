@@ -10,12 +10,11 @@ public class LogicGate : MonoBehaviour
     private bool andButtons;
     private bool andPresses;
     private float leversSum;
-    private List<ButtonBehaviour> buttons = new List<ButtonBehaviour>();
-    private List<PressBehaviour> presses = new List<PressBehaviour>();
+    private List<Button> buttons = new List<Button>();
+    private List<PressPlate> presses = new List<PressPlate>();
     private List<LeverBehaviour> levers = new List<LeverBehaviour>();
     private List<LogicGate> gates = new List<LogicGate>();
 
-    // Start is called before the first frame update
     void Start()
     {
         foreach (GameObject obj in inputs)
@@ -23,10 +22,10 @@ public class LogicGate : MonoBehaviour
             if (obj != null)
             {
                 if (obj.CompareTag("Button"))
-                    buttons.Add(obj.GetComponent<ButtonBehaviour>());
+                    buttons.Add(obj.GetComponent<Button>());
 
                 if (obj.CompareTag("Press"))
-                    presses.Add(obj.GetComponent<PressBehaviour>());
+                    presses.Add(obj.GetComponent<PressPlate>());
 
                 if (obj.CompareTag("Lever"))
                     levers.Add(obj.GetComponent<LeverBehaviour>());
@@ -37,7 +36,6 @@ public class LogicGate : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         andButtons = true;
@@ -46,13 +44,13 @@ public class LogicGate : MonoBehaviour
 
         if (buttons.Count > 0)
         {
-            foreach (ButtonBehaviour button in buttons)
-                andButtons = andButtons && button.on;
+            foreach (Button button in buttons)
+                andButtons = andButtons && button.On;
         }
         if (presses.Count > 0)
         {
-            foreach(PressBehaviour press in presses)
-                andPresses = andPresses && press.on;
+            foreach (PressPlate press in presses)
+                andPresses = andPresses && press.On;
         }
 
         if(andButtons && andPresses)

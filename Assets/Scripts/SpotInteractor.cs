@@ -22,11 +22,21 @@ public class SpotInteractor : MonoBehaviour
         _nearestSpotSelector.OnSelect();
         _characterController.DestinationReached += OnDestinationReached;
         _characterController.MoveToDestinationWithOrientation(_nearestSpotSelector.GetSelectedObject());
+        //_characterController.DestinationAborted += OnDestinationAborted;
     }
 
     private void OnDestinationReached()
     {
         _characterController.DestinationReached -= OnDestinationReached;
+        //_characterController.DestinationAborted -= OnDestinationAborted;
+        SpotReached?.Invoke();
+    }
+    
+    private void OnDestinationAborted()
+    {
+        print("aborted");
+        _characterController.DestinationReached -= OnDestinationReached;
+        _characterController.DestinationAborted -= OnDestinationAborted;
         SpotReached?.Invoke();
     }
 
