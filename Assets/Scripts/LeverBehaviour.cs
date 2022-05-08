@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(SpotInteractor))]
 public class LeverBehaviour : MonoBehaviour, IInteractable
 {
     [HideInInspector] public float Percent = 0;
@@ -10,30 +10,43 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
     [SerializeField] private float leverSpeed = 70;
     [SerializeField] private float maxRotation = 90;
 
-    private bool _inRange = false;
-    private bool _isPulling = false;
+    private bool _onSpot = false;
+    private bool _interacting = false;
     private float _currentRotation = 0;
     private float _stepRotation;
     private GameObject _character;
     private PlayerController _characterController;
+    private SpotInteractor _spotInteractor;
 
     private void Awake()
     {
         _character = GameObject.Find("Player");
         _characterController = _character.GetComponent<PlayerController>();
+        _spotInteractor = GetComponent<SpotInteractor>();
+
         _stepRotation = Time.deltaTime * leverSpeed;
+    }
+
+    private void Start()
+    {
+        _spotInteractor.SpotReached += OnSpot;
+    }
+
+    private void OnDestroy()
+    {
+        _spotInteractor.SpotReached -= OnSpot;
+    }
+
+    private void OnSpot()
+    {
+        _onSpot = _interacting;
     }
 
     public void OnBeginInteract()
     {
-        if (_inRange)
-        {
-            _isPulling = true;
-        }
-        else
-        {
-            _characterController.OnMove();
-        }
+        _interacting = true;
+        _characterController.DisableButtonMove();
+        _spotInteractor.GoToNearestSpot();
     }
 
     public void OnInteract()
@@ -42,12 +55,14 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
     
     public void OnEndInteract()
     {
-        _isPulling = false;
+        _characterController.EnableButtonMove();
+        _interacting = false;
+        _onSpot = false;
     }
 
     void FixedUpdate()
     {
-        if (_isPulling)
+        if (_onSpot)
         {
             if (_currentRotation > maxRotation) return;
             RotateOneStep(false);
@@ -65,22 +80,6 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
         leverStick.Rotate(sign * _stepRotation, 0, 0, Space.Self);
         _currentRotation += sign * _stepRotation;
         Percent = _currentRotation / maxRotation;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag(GameManager.TAG_PLAYER))
-        {
-            _inRange = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag(GameManager.TAG_PLAYER))
-        {
-            _inRange = false;
-            _isPulling = false;
-        }
+        Mathf.Clamp(Percent, 0, 1);
     }
 }
