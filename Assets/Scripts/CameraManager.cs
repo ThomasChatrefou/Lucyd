@@ -33,9 +33,10 @@ public class CameraManager : MonoBehaviour
     public IEnumerator CamSlide()
     {
         float PauseTimer = 2;
-        Player.GetComponent<CharacterMovement>().enabled = false;
-        Cam.GetComponent<CamsBehaviour>().enabled = false;
+        Player.GetComponent<PlayerController>().enabled = false;
+        Cam.GetComponent<RECamBehaviour>().enabled = false;
         Direction = (CamAnchor.position - Cam.transform.position).normalized;
+        Vector3 OldCamPos = Cam.transform.position;
 
         while (((Cam.transform.position + Direction * CamSpeed) - CamAnchor.position).magnitude > 0.5f)
         {
@@ -48,7 +49,8 @@ public class CameraManager : MonoBehaviour
             yield return 0;
         }
 
-        Player.GetComponent<CharacterMovement>().enabled = true;
-        Cam.GetComponent<CamsBehaviour>().enabled = true;
+        Player.GetComponent<PlayerController>().enabled = true;
+        Cam.GetComponent<RECamBehaviour>().enabled = true;
+        Cam.transform.position = OldCamPos;
     }
 }
