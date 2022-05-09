@@ -19,6 +19,7 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
     private InteractableController _characterInteractableController;
     private PickableController _characterPickableController;
     private SpotInteractor _spotInteractor;
+    private PickablePhysics _pickablePhysics;
 
 
     private void Awake()
@@ -31,6 +32,7 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
         _spotInteractor = GetComponent<SpotInteractor>();
         _obstacle = GetComponentInChildren<NavMeshObstacle>();
         _animator = GetComponentInChildren<Animator>();
+        _pickablePhysics = GetComponent<PickablePhysics>();
         _defaultParent = transform.parent;
     }
 
@@ -53,6 +55,7 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
         {
             //print("BEGIN");
             _interacting = true;
+            _pickablePhysics.enabled = false;
             _characterInteractableController.State = InteractionState.Approaching;
             _characterController.DisableButtonMove();
             _spotInteractor.GoToNearestSpot();
@@ -132,6 +135,7 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
 
     public void OnDropAnimationEnd()
     {
+        _pickablePhysics.enabled = true;
         _characterInteractableController.State = InteractionState.Waiting;
         _characterController.EnableButtonMove();
         Destroy(_shadow);

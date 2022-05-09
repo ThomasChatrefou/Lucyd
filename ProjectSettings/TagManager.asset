@@ -13,6 +13,7 @@ TagManager:
   - Ground
   - Follower
   - TorchEnigm
+  - MovingGround
   layers:
   - Default
   - TransparentFX

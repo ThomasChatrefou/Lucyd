@@ -18,7 +18,9 @@ public class PanelBehaviour : MonoBehaviour
     private Vector3 targetPos;
     private Vector3 originalPos;
     private Vector3 translation;
+    private Vector3 velocity;
 
+    public float smoothness = 0.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +51,11 @@ public class PanelBehaviour : MonoBehaviour
     void FixedUpdate()
     {
         targetPos = originalPos + dist * translation;
-        transform.position = Vector3.Lerp(originalPos, targetPos, gate.output);        
+        transform.position = Vector3.SmoothDamp(transform.position, Vector3.Lerp(originalPos, targetPos, gate.output), ref velocity, smoothness);
+    }
+
+    public Vector3 GetVelocity()
+    {
+        return velocity;
     }
 }

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2360388359650972582}
   m_Layer: 8
   m_Name: Panel
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,4 +150,3 @@ MonoBehaviour:
   moveForward: 0
   moveBackward: 0
   dist: 4
-  speed: 1
