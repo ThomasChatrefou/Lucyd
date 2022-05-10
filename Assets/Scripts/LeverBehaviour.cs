@@ -21,7 +21,8 @@ public class LeverBehaviour : MonoBehaviour, IInteractable
     private void Awake()
     {
         _character = GameObject.Find("Player");
-        _characterController = _character.GetComponent<PlayerController>();
+        if (_character != null)
+            _characterController = _character.GetComponent<PlayerController>();
         _spotInteractor = GetComponent<SpotInteractor>();
 
         _stepRotation = Time.deltaTime * leverSpeed;

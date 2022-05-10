@@ -13,7 +13,8 @@ public class SpotInteractor : MonoBehaviour
     private void Awake()
     {
         _character = GameObject.Find("Player");
-        _characterController = _character.GetComponent<PlayerController>();
+        if (_character != null)
+            _characterController = _character.GetComponent<PlayerController>();
         _nearestSpotSelector = GetComponentInChildren<ISelector>();
     }
 

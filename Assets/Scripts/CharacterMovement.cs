@@ -7,7 +7,7 @@ public class CharacterMovement : MonoBehaviour
     public NavMeshAgent agent;
     private LayerMask mask;
 
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetMouseButtonDown(1))
         {

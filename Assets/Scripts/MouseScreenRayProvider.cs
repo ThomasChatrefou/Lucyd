@@ -2,9 +2,10 @@
 
 public class MouseScreenRayProvider : MonoBehaviour, IRayProvider
 {
-    private Camera cam;
-
-    void Start()
+    public Camera cam;
+    //private Camera cam;
+    /*
+    void Awake()
     {
         GameObject darkWorldCam = GameObject.Find("DarkWorldCam");
         if (darkWorldCam)
@@ -12,7 +13,7 @@ public class MouseScreenRayProvider : MonoBehaviour, IRayProvider
             cam = darkWorldCam.GetComponent<Camera>();
         }
     }
-
+    */
     public Ray CreateRay()
     {
         return cam.ScreenPointToRay(Input.mousePosition);

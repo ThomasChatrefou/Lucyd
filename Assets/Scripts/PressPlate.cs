@@ -26,7 +26,9 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
     private void Start()
     {
         _character = GameObject.Find("Player");
-        _characterController = _character.GetComponent<PlayerController>();
+        if (_character != null)
+            _characterController = _character.GetComponent<PlayerController>();
+        if( _characterController != null)
         _characterPickableController = _character.GetComponent<PickableController>();
         
         _animator = GetComponent<Animator>();

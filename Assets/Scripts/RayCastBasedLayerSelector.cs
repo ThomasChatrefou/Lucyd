@@ -12,9 +12,11 @@ public class RayCastBasedLayerSelector : MonoBehaviour, ISelector
     public delegate void SelectorDelegate();
     public event SelectorDelegate Checked;
 
-    private void Awake()
+    private void Start()
     {
+        if (_rayProvider == null)
         _rayProvider = GetComponent<IRayProvider>();
+        if( GameManager.instance != null )
         _worldManager = GameManager.instance.GetComponent<IWorldManager>();
     }
 

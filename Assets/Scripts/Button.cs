@@ -26,8 +26,10 @@ public class Button : MonoBehaviour, IInteractable
     private void Awake()
     {
         _character = GameObject.Find("Player");
-        _characterController = _character.GetComponent<PlayerController>();
-        _characterInteractableController = _character.GetComponent<InteractableController>();
+        if (_character != null)
+            _characterController = _character.GetComponent<PlayerController>();
+        if (_characterController != null)
+            _characterInteractableController = _character.GetComponent<InteractableController>();
         _spotInteractor = GetComponent<SpotInteractor>();
         _animator = GetComponent<Animator>();
     }
