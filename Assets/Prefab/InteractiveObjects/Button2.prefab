@@ -152,7 +152,7 @@ MonoBehaviour:
   On: 0
   canBeDisabledByHitAgain: 1
   hasTimer: 0
-  switchOnDuration: 3
+  switchOnDuration: 1
   animatorTrigger: Pressed
 --- !u!65 &1119423717379782555
 BoxCollider:
@@ -162,7 +162,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6341205298585232178}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1.1952289, z: 1}

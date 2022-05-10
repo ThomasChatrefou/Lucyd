@@ -89,7 +89,6 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.time - _lastMoveTime < 1f / moveRateOnDrag) return;
         _newDestination = _currentSelector.GetSelectedPosition();
-        print("move");
         Move();
     }
 

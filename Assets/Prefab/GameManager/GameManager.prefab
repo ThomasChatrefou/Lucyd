@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2847414640167640752}
   - component: {fileID: 6887821200673271770}
   - component: {fileID: 4817284875370240168}
+  - component: {fileID: 327089552}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,15 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d61f12a8dc8d7247a5a8cc91c94c24a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightChildOfDark: {fileID: 0}
-  worldSwap: 0
-  darkWorld: 0
-  worldFadeCooldown: 0
-  darkWorldCamera: {fileID: 0}
-  lightWorldEnvironment: {fileID: 0}
-  darkWorldEnvironment: {fileID: 0}
-  magicCrate: {fileID: 0}
-  nbrMana: 0
   nbrTorchLighted: 0
   portal: {fileID: 0}
   resetLevelCooldown: 60
@@ -83,3 +75,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea9eae512b05054f85a89c8ab42665f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CamSpeed: 0
+--- !u!114 &327089552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2847414640167640755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 028f92ece9a213e4fbf79c78ee231217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightWorldEnvironment: {fileID: 0}
+  darkWorldEnvironment: {fileID: 0}
+  lightChildOfDark: {fileID: 0}
+  magicCrate: {fileID: 0}
+  worldFadeCooldown: 1
+  worldSwap: 0

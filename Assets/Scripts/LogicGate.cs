@@ -21,7 +21,7 @@ public class LogicGate : MonoBehaviour
         {
             if (obj != null)
             {
-                if (obj.CompareTag("Button"))
+                if (obj.CompareTag("Button") || obj.CompareTag("TorchEnigm"))
                     buttons.Add(obj.GetComponent<Button>());
 
                 if (obj.CompareTag("Press"))

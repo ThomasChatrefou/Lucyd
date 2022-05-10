@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class TorchBehaviour : MonoBehaviour
 {
-    private ButtonBehaviour Button;
+    private Button Button;
     public bool lighted;
     public bool canBeLighted;
     
@@ -14,7 +14,7 @@ public class TorchBehaviour : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
-        Button = GetComponent<ButtonBehaviour>();
+        Button = GetComponent<Button>();
         if(!lighted)
             transform.GetChild(0).gameObject.SetActive(false);
     }
@@ -23,7 +23,7 @@ public class TorchBehaviour : MonoBehaviour
     {
         if (lighted == false && canBeLighted)
         {
-            if (Button.on)
+            if (Button.On)
             {
                 GameManager.instance.CountTorch();
                 transform.GetChild(0).gameObject.SetActive(true);

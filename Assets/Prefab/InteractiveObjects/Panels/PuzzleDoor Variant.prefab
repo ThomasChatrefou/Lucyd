@@ -98,6 +98,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2950229835953388083, guid: 22827296444267e4299b5eaeb6743820, type: 3}
+      propertyPath: smoothness
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950229836930875999, guid: 22827296444267e4299b5eaeb6743820, type: 3}
+      propertyPath: smoothness
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7365886954669382358, guid: 22827296444267e4299b5eaeb6743820, type: 3}
       propertyPath: m_Name
       value: PuzzleDoor Variant

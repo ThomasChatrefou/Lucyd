@@ -171,7 +171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7324406796839987482}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Logs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 3835515744677999049}
   - component: {fileID: 3835515744677999050}
   - component: {fileID: 3835515744677999051}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 3835515745516776877}
   - component: {fileID: 3835515745516776878}
   - component: {fileID: 3835515745516776879}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ GameObject:
   - component: {fileID: 3835515745533775752}
   - component: {fileID: 3835515745533775749}
   - component: {fileID: 3835515745533775754}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cylinder (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 3835515746185078917}
   - component: {fileID: 3835515746185078918}
   - component: {fileID: 3835515746185078919}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cylinder (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

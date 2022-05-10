@@ -47,7 +47,7 @@ public class PickableController : MonoBehaviour
         PressPlate pressPlate = objectUnderCursor.GetComponent<PressPlate>();
         if(pressPlate != null)
         {
-            if (pressPlate.GetnObjectsOnPress() > 0) return;
+            if (pressPlate.Blocked || pressPlate.GetnObjectsOnPress() > 0) return;
             _dropPosition = pressPlate.GetSocketPosition();
             return;
         }

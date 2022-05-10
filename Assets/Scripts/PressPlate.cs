@@ -9,7 +9,7 @@ public interface ISpot
 [RequireComponent(typeof(Animator))]
 public class PressPlate : MonoBehaviour, IInteractable, ISpot
 {
-    public bool On { get => _nObjectsOnPress > 0; }
+    public bool On { get => _nObjectsOnPress > 0 && !Blocked; }
 
     [SerializeField] private Transform socket;
     [SerializeField] private string pressedTrigger = "Pressed";
@@ -20,6 +20,8 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
     private GameObject _character;
     private PickableController _characterPickableController;
     private PlayerController _characterController;
+
+    public bool Blocked = false;
 
     private void Start()
     {
@@ -85,6 +87,11 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
             if (_nObjectsOnPress > 1) return;
             if (_animator) _animator.SetTrigger(pressedTrigger);
         }
+
+        if (other.CompareTag("Push"))
+        {
+            Blocked = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -97,5 +104,10 @@ public class PressPlate : MonoBehaviour, IInteractable, ISpot
         }
 
         if (_nObjectsOnPress < 0) _nObjectsOnPress = 0;
+
+        if (other.CompareTag("Push"))
+        {
+            Blocked = false;
+        }
     }
 }

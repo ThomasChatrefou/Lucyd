@@ -55,7 +55,6 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
         {
             //print("BEGIN");
             _interacting = true;
-            _pickablePhysics.enabled = false;
             _characterInteractableController.State = InteractionState.Approaching;
             _characterController.DisableButtonMove();
             _spotInteractor.GoToNearestSpot();
@@ -105,6 +104,7 @@ public class Pickable : MonoBehaviour, IInteractable, IPickable
 
     public void Pickup()
     {
+        _pickablePhysics.enabled = false;
         _characterInteractableController.State = InteractionState.InAnimation;
         transform.SetParent(_character.transform, true);
         _animator.SetTrigger(pickupTrigger);

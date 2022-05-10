@@ -19,7 +19,7 @@ class InteractableController : MonoBehaviour
     [SerializeField] private float interactionRateOnDrag = 2f;
 
     private float _lastInteractionTime;
-    private IInteractable _Interactable;
+    private IInteractable _Interactable = null;
     private ISelector _raycastSelector;
     private OneButtonInputHandler _input;
 

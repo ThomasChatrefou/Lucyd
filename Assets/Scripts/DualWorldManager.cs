@@ -90,7 +90,7 @@ public class DualWorldManager : MonoBehaviour, IWorldManager
             }
 
             col = child.GetComponent<Collider>();
-            if (col && !child.CompareTag("Ground"))
+            if (col && !child.CompareTag("Ground") && !child.CompareTag("MovingGround"))
                 colliders.Add(col);
 
             nmo = child.GetComponent<NavMeshObstacle>();

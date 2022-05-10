@@ -45,7 +45,7 @@ public class PickablePhysics : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Door"))
+        if (other.CompareTag("Push"))
         {
             _pushed = true;
             _pushingPanel = other.GetComponent<PanelBehaviour>();
@@ -72,7 +72,7 @@ public class PickablePhysics : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Door"))
+        if (other.CompareTag("Push"))
         {
             _pushed = false;
             _pushingPanel = null;
