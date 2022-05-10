@@ -75,6 +75,7 @@ class InteractableController : MonoBehaviour
     public bool CheckInteraction()
     {
         Transform newInteraction = _raycastSelector.GetSelectedObject();
+        if (newInteraction == null) return false;
         _Interactable = newInteraction.GetComponent<IInteractable>();
         if (_Interactable == null) return false;
         return true;
